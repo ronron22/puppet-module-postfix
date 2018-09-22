@@ -4,7 +4,7 @@ class postfix::install (
 
 	) inherits postfix {
         
-		$apache_packages.each |String $package|{
+		$postfix_packages.each |String $package|{
 			package { "$postfix_package": 
 				ensure  =>  installed,
 			}
