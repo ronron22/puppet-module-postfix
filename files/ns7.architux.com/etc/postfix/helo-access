@@ -1,0 +1,10 @@
+.bp01.net REJECT
+.bp02.net REJECT
+.bp03.net REJECT
+.bp04.net REJECT
+.bp05.net REJECT
+.bp06.net REJECT
+.free-mobile.fr PERMIT
+fashionprivilege.com REJECT
+surinvitation.com REJECT
+

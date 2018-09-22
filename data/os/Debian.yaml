@@ -1,0 +1,9 @@
+---
+postfix::install::postfix_package: 
+  - postfix
+  - postfix-ldap
+  - postfix-pcre
+  - postfix-policyd-spf-python
+  - pmailq
+
+postfix::config::configuration_directory: '/etc/postfix'

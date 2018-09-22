@@ -1,0 +1,52 @@
+127.0.0.1       permit
+10.100.0.0/16   permit
+62.39.240.206   permit
+88.191.254.8    permit
+88.191.254.9    permit
+91.121.5.106    permit
+82.239.175.46   permit
+88.191.38.159   permit
+88.190.21.164   permit
+88.190.230.187  permit
+88.190.230.216  permit
+88.190.230.222  permit
+80.14.43.225    permit
+176.180.243.83  permit
+213.182.35.228  permit
+
+10.200.0.0/16   reject
+5.135.5.98      reject
+176.31.43.129   reject
+
+41.77.115.42    permit
+88.190.254.18   permit
+50.31.63.54     permit
+37.161.160.155  permit
+
+208.64.202.37 permit
+
+217.151.0.199   reject
+217.151.0.200   reject
+217.151.0.201   reject
+217.151.0.202   reject
+217.151.0.221   reject
+217.151.0.222   reject
+217.151.0.223   reject
+217.151.0.224   reject
+217.151.0.225   reject
+217.151.0.226   reject
+
+# relaismtp.frameip.com
+176.57.243.138 reject
+
+# ml.bonnes-infos-utiles.com.
+163.172.99.29 reject
+
+108.177.97.26  permit
+74.125.28.27   permit
+64.233.166.26  permit
+64.233.162.26  permit
+74.125.68.27   permit
+64.233.162.26  permit
+74.125.68.27   permit
+

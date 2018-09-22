@@ -1,0 +1,192 @@
+mail_name = POSTFIX
+smtpd_banner = ESMTP $mail_name
+
+###########
+#  DEBUG  #
+###########
+#debug_peer_list = codecedre.com,keltia-magazine.com, agacio.com
+debug_peer_list = 
+soft_bounce = no
+delay_warning_time = 4h
+
+#smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+biff = no
+append_dot_mydomain = no
+readme_directory = /usr/share/doc/postfix
+#########
+#  SSL  #
+#########
+## server ##
+#smtpd_tls_cert_file=/etc/ssl/mail.architux.crt
+# lets encrypt
+smtpd_tls_cert_file=/var/lib/acme/live/mail.architux.com/cert
+#smtpd_tls_key_file=/etc/ssl/architux.key
+# lets encrypt
+smtpd_tls_key_file=/var/lib/acme/live/mail.architux.com/privkey
+smtpd_use_tls=yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+smtpd_tls_loglevel = 1
+smtpd_tls_security_level = may
+smtpd_tls_received_header = yes
+smtpd_tls_session_cache_timeout = 3600s
+
+smtpd_tls_ciphers = high
+smtpd_tls_mandatory_protocols = !SSLv2, !SSLv3
+smtp_tls_mandatory_ciphers = high
+smtp_tls_mandatory_exclude_ciphers = RC4, MD5, DES
+smtp_tls_exclude_ciphers = aNULL, RC4, MD5, DES, 3DES
+
+## client ##
+smtp_use_tls = yes
+smtp_tls_note_starttls_offer = yes
+smtp_tls_loglevel = 1
+##########
+#  SASL  #
+##########
+smtpd_sasl_local_domain = $myhostname
+smtpd_sasl_auth_enable = yes
+broken_sasl_auth_clients = yes
+smtpd_sasl_authenticated_header = yes
+
+myhostname = architux.com
+mydomain = $myhostname
+smtp_helo_name = mail.architux.com
+
+#########
+# ALIAS #
+#########
+### LDAP ALIAS ###
+ldapaliases_server_host = 195.154.236.164
+ldapaliases_search_base = ou=People,dc=architux,dc=com
+ldapaliases_scope = sub
+ldapaliases_query_filter = (cn=%s)
+ldapaliases_result_attribute = mail
+
+alias_maps = hash:/etc/aliases,ldap:ldapaliases
+alias_database = hash:/etc/aliases
+
+myorigin = /etc/mailname
+relay_domains = $mydomain
+mydestination = localhost.dedibox.fr, localhost, opendns.io, architux.com, $mydomain, $myhostname, 127.0.0.1 
+relayhost = 
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128, architux.com, agacio.com, codecedre.com, 62.39.240.206, 88.191.254.8, 88.191.254.9, keltia-magazine.com, 91.121.5.106, 82.239.175.46, 88.191.38.159, 88.190.21.164, sd-29381.dedibox.fr, unigo.fr, 10.100.0.0/16, iweb3, iweb3.architux.com, 10.100.0.12, 88.190.21.164, 88.190.230.187, 88.190.230.216, 88.190.230.222, 80.14.43.225, 176.180.243.83, 10.100.0.22, 88.164.73.109, 88.14.43.225, 88.123.216.199, 195.154.236.164, 163.172.214.190, opendns.io, 88.121.201.61, $myhostname, localhost.$mydomain 
+
+sender_canonical_maps = hash:/etc/postfix/sender_canonical
+
+#mailbox_command = procmail -a "$EXTENSION"
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+inet_protocols = ipv4
+html_directory = /usr/share/doc/postfix/html
+
+#########
+# LIMIT #
+#########
+
+message_size_limit = 153600000
+
+############
+# SECURITY #
+############
+
+### MILTER ###
+#9900: rmilter && rspam
+#9999: spamassassin
+#9998: clamav
+#smtpd_milters = inet:localhost:9900, inet:localhost:9999, inet:localhost:9998, inet:localhost:8891
+#smtpd_milters = inet:localhost:9900, inet:localhost:9999, inet:localhost:9998
+#non_smtpd_milters = inet:localhost:8891
+#milter_protocol = 6
+#milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}
+# skip mail without checks if milter will die
+#milter_default_action = accept
+
+policyd-spf_time_limit = 3600
+
+#smtpd_relay_restrictions = 
+#    permit_mynetworks,
+#    permit_sasl_authenticated,
+#    defer_unauth_destination
+
+smtpd_client_restrictions = 
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unknown_client_hostname,
+    check_client_access hash:/etc/postfix/client-access
+
+smtpd_helo_restrictions = 
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    #check_helo_access regexp:/etc/postfix/helo-access
+
+smtpd_sender_restrictions = 
+    permit_mynetworks,
+    reject_unauth_destination,
+    check_sender_mx_access hash:/etc/postfix/sender-mx-access,
+    check_sender_access hash:/etc/postfix/sender-access,
+    check_sender_ns_access hash:/etc/postfix/sender-ns-access
+
+smtpd_recipient_restrictions =
+    permit_sasl_authenticated,
+    permit_mynetworks,
+    #check_recipient_access hash:/etc/postfix/filtered_domains
+    reject_unauth_destination,
+    check_policy_service unix:private/policyd-spf
+
+### Head checks ###
+header_checks = pcre:/etc/postfix/header_checks
+
+### Attachment killer ###
+mime_header_checks = regexp:/etc/postfix/mime_header_checks
+
+### POSTSCREEN ###
+postscreen_access_list = 
+    permit_mynetworks,
+    cidr:/etc/postfix/postscreen_access.cidr
+
+postscreen_blacklist_action = enforce
+
+postscreen_dnsbl_sites =
+        zen.spamhaus.org*3
+        #dnsbl.njabl.org*2
+        bl.spameatingmonkey.net*2
+        dnsbl.ahbl.org
+        bl.spamcop.net
+        dnsbl.sorbs.net
+
+postscreen_dnsbl_threshold = 3
+postscreen_dnsbl_action = enforce
+
+postscreen_greet_banner = Bienvenue et merci d'attendre
+postscreen_greet_action = enforce
+
+postscreen_pipelining_enable = yes
+postscreen_pipelining_action = enforce
+
+postscreen_non_smtp_command_enable = yes
+postscreen_non_smtp_command_action = enforce
+
+postscreen_bare_newline_enable = yes
+postscreen_bare_newline_action = enforce
+
+
+############
+# DELIVERS #
+############
+
+### LOCAL DOMAINS IMAP DELIVER ###
+#mailbox_transport = lmtp:195.154.236.164:24
+mailbox_transport = lmtp:127.0.0.1:24
+
+### VIRTUAL DOMAINS IMAP DELIVER  ###
+virtual_mailbox_domains = agacio.com, codecedre.com, keltia-magazine.com, associationtaiga.com, ipsteel.com, unigo.fr
+virtual_mailbox_base = /var/spool/vmail
+virtual_mailbox_maps = hash:/etc/postfix/virtual
+virtual_alias_maps = hash:/etc/postfix/virtual_alias
+virtual_uid_maps = static:999
+virtual_gid_maps = static:999
+#virtual_transport = lmtp:lmtp.architux.com:24
+virtual_transport = lmtp:localhost:24
+

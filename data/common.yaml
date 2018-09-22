@@ -1,0 +1,5 @@
+---
+postfix::service::service_name: 'postfix'
+postfix::service::service_enable: true
+postfix::service::service_ensure: 'running'
+postfix::service::service_manage: true
