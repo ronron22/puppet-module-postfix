@@ -1,5 +1,5 @@
 ---
-postfix::install::postfix_package: 
+postfix::install::postfix_packages: 
   - postfix
   - postfix-ldap
   - postfix-pcre
