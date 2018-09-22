@@ -1,6 +1,6 @@
 class postfix::install (
 
-	$postfix_package    = hiera('postfix_package'),
+	$postfix_packages = hiera('postfix_packages'),
 
 	) inherits postfix {
         
