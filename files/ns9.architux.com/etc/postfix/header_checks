@@ -1,0 +1,14 @@
+/^X-Campaign/i REJECT spammeur de merde
+/^X-EMV-Platform/i REJECT spammeur de merde
+/X-test:/i WARN INVALID_HEADER
+/List-Unsubscribe:/i WARN INVALID_HEADER
+/X-toto:.*pouet/i PREPEND X-ton: 1
+
+/google/i PREPEND X-Archi: gruik
+/facebook/i PREPEND X-Spam: Yes
+/Au.*Vieux.*campeur/i PREPEND X-Spam: Yes
+/relievedart/i PREPEND X-Spam: Yes
+
+/^(Received|Message-Id|X-(Mailer|Sender)):.*\b(AutoMail|E-Broadcaster|Emailer Platinum|Thunder Server|eMarksman|Extractor|e-Merge|from stealth[^.]|Global Messenger|GroupMaster|Mailcast|MailKing|Match10|MassE-Mail|massmail\.pl|News Breaker|Powermailer|Quick Shot|Ready Aim Fire|WindoZ|WorldMerge|Yourdora|Lite)\b/ REJECT No mass mailers allowed. You are probably sending spam
+/^X-Mailer:.*\b(Mailxpertise|Aristotle|Avalanche|Blaster|Bomber|DejaVu|eMerge|Extractor|UltraMail|Sonic|Floodgate|GeoList|Mach10|MegaPro|Aureate|MultiMailer|Bluecom|Achi-Kochi Mail|Direct Email|Andrew's SuperCool Blastoise|MailerGear|Advanced Mass Sender|SpireMail|MailWorkZ|UltimDBMail|Mabry|Lite)\b/ REJECT No mass mailers allowed. You are probably sending spam.
+/^(To|From|Cc|Reply-To):.*@optonline/   REJECT Sorry, your message is probably spam

@@ -1,0 +1,9 @@
+/e-octelio\.com/ REJECT
+/free-mobile\.fr/ OK
+/fashionprivilege\.com/ REJECT
+/surinvitation\.com/ REJECT
+/malakoffmederic\.com/ OK
+/formspree\.io/ OK
+/auvieuxcampeur@/ REJECT
+# spam outremer
+/od-lettre.*\@googlegroups\.com/ REJECT

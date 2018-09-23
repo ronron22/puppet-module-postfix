@@ -1,0 +1,52 @@
+mail_name = POSTFIX
+smtpd_banner = ESMTP $mail_name
+
+### DEBUG ###
+#debug_peer_list = codecedre.com,keltia-magazine.com, agacio.com
+soft_bounce = no
+
+#smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+biff = no
+append_dot_mydomain = no
+readme_directory = /usr/share/doc/postfix
+
+### SSL ###
+smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_use_tls=yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+
+smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+
+myhostname = architux.com
+smtp_helo_name = mail.architux.com
+
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+myorigin = /etc/mailname
+mydestination = 163-172-214-190.online.net, sd-94943.dedibox.fr, localhost.dedibox.fr, localhost, opendns.io 
+relayhost = 
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+mailbox_command = procmail -a "$EXTENSION"
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+html_directory = /usr/share/doc/postfix/html
+
+### MILTER ###
+#9900: rmilter && rspam
+#9999: spamassassin
+#9998: clamav
+smtpd_milters = inet:localhost:9900, inet:localhost:9999, inet:localhost:9998
+milter_protocol = 6
+milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}
+# skip mail without checks if milter will die
+milter_default_action = accept
+
+
+policyd-spf_time_limit = 3600
+
+smtpd_recipient_restrictions =
+    reject_unauth_destination,
+    check_policy_service unix:private/policyd-spf

@@ -1,0 +1,5 @@
+/.+@(.+)/  PREPEND X-Relay-Domain: $1
+/.+@google\.com/  PREPEND X-Relay-Domain: $1
+/jalbgroup\.fr/ OK
+/mail\.venedim\.fr/ OK
+

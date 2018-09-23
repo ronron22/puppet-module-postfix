@@ -1,0 +1,7 @@
+#/^\s*Content-(Disposition|Type).*text\/html.*$/ FILTER scan:127.0.0.1:10026
+#/^Content(Disposition|Type):.*(file)?name="?.*\.(bat|com|pif|vb|scr|chm|wsh|inf|shs|job|shb|scp|scf|wsc|sct|msc|mdb|exe|text|html)/ FILTER scan:127.0.0.1:10026
+#/.*/ FILTER scan:127.0.0.1:10026
+
+/filename="?.*\.(bat|pif|vb|scr|wsh|inf|shs|job|shb|scp|scf|wsc|sct|msc|db|exe)/ REJECT
+
+#/^Content(Disposition|Type):.*(file)?name="?.*\.(bat|com|pif|vb|scr|chm|wsh|inf|shs|job|shb|scp|scf|wsc|sct|msc|mdb|exe)/ REJECT Extension de fichier joint refusée.
