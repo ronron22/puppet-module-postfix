@@ -44,4 +44,10 @@ class postfix::config (
   refreshonly => true,
   }
 
+    file { "${configuration_directory}/${db_files}" :
+        audit => 'content',
+        notify => Exec['postmap_file'],
+    }
+
+
 }
