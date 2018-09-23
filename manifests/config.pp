@@ -23,9 +23,9 @@ class postfix::config (
 
     $db_files.each |String $dbfile| {
         exec { "/usr/sbin/postmap ${configuration_directory}/${dbfile}" :
-        path        => ['/usr/bin', '/usr/sbin'],
-        subscribe   => File["/etc/postfix/${dbfile}"],
-        refreshonly => true,
+					path        => ['/usr/bin', '/usr/sbin'],
+					subscribe   => File["/etc/postfix/${dbfile}"],
+					refreshonly => true,
         }
 		}
 
