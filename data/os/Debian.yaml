@@ -6,4 +6,3 @@ postfix::install::postfix_packages:
   - postfix-policyd-spf-python
   - pmailq
 
-postfix::config::configuration_directory: '/etc/postfix'

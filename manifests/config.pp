@@ -3,6 +3,7 @@ class postfix::config (
 	$nodename = hiera('nodename'),
 	$configuration_directory = hiera('configuration_directory'),
 	$service_name = hiera('postfix::service::service_name'),
+	$db_files = hiera('db_files'),
     
 	) inherits postfix {
 
@@ -14,40 +15,18 @@ class postfix::config (
       notify   => Service[$service_name],  
     }
 
-    file { $postfix_db_files :
-			ensure => present
-      notify   => Exec[$postmap_file],  
-
-		exec { '/usr/sbin/postmap $postfix_db_file':
-			alias   => 'postmap_file'
-			cwd     => '/var/tmp',
-			path    => ['/usr/bin', '/usr/sbin',],
-		}
-
-    #file { "${configuration_directory}/$db_files" :
-    #  ensure => present,
-    #  notify   => Exec[postmap_file],
-    #}  
-
-    #exec { "/usr/sbin/postmap ${configuration_directory}/${db_file}":
-    #  alias   => 'postmap_file',
-    #  cwd     => '/var/tmp',
-    #  path    => ['/usr/bin', '/usr/sbin',],        
-    #  refreshonly => true,
-    #}
-
-    exec { 'my_command':
-    command   => "/usr/sbin/postmap ${configuration_directory}/${db_file}",
-    subscribe => [
-    File["${configuration_directory}/${db_file}"],
-  ],
-  refreshonly => true,
-  }
-
-    file { "${configuration_directory}/${db_files}" :
-        audit => 'content',
-        notify => Exec['postmap_file'],
+		$db_files.each |String $dbfile| {
+			file { "/etc/postfix/${dbfile}":
+				audit => 'content',
+			}
     }
 
+    $db_files.each |String $dbfile| {
+        exec { "/usr/sbin/postmap ${configuration_directory}/${dbfile}" :
+        path        => ['/usr/bin', '/usr/sbin'],
+        subscribe   => File["/etc/postfix/${dbfile}"],
+        refreshonly => true,
+        }
+		}
 
 }
