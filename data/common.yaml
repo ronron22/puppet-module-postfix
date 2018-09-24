@@ -11,8 +11,5 @@ postfix::config::db_files:
   - sender-ns-access
   - virtual
   - virtual_alias
-  - access
   - client-access
-  - filtered-domains
   - helo-access
-  - sender
