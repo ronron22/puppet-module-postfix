@@ -22,11 +22,20 @@ class postfix::config (
     }
 
     $db_files.each |String $dbfile| {
-        exec { "/usr/sbin/postmap ${configuration_directory}/${dbfile}" :
-					path        => ['/usr/bin', '/usr/sbin'],
-					subscribe   => File["/etc/postfix/${dbfile}"],
-					refreshonly => true,
-        }
+			exec {"postfix.recreate.${dbfile}":
+				command => "/usr/sbin/postmap ${configuration_directory}/${dbfile}",
+				path        => ['/usr/bin', '/usr/sbin'],
+				subscribe   => File["${configuration_directory}/${dbfile}"],
+				refreshonly => true,
+			}
+		}
+
+		$db_files.each |String $dbfile| {
+			exec {"postfix.create.${dbfile}":
+				command => "/usr/sbin/postmap ${configuration_directory}/${dbfile}", 
+				path        => ['/usr/bin', '/usr/sbin'],
+				onlyif =>  "test ! -f ${configuration_directory}/${dbfile}.db",
+			}
 		}
 
 }
