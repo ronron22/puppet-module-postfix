@@ -7,3 +7,5 @@
 /auvieuxcampeur@/ REJECT
 # spam outremer
 /od-lettre.*\@googlegroups\.com/ REJECT
+# test ###
+/accountprotectioni\.microsoft\.com/ OK
