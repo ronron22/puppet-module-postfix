@@ -1,18 +1,4 @@
-class postfix::config (
-
-  String $configuration_directory,
-  String $postfix_files_directory, 
-  String $sasl_files_directory,
-  String $service_name          = hiera('postfix::service::service_name'),
-  $sasl_files_full_directory    = "${configuration_directory}/${sasl_files_directory}",
-  $postfix_files_full_directory = "${configuration_directory}/${postfix_files_directory}", 
-  Array $config_files,
-  Array $access_files,
-  Array $db_files,
-  Array $postfix_files_content,
-  Array $sasl_files,
-    
-  ) inherits postfix {
+class postfix::config inherits postfix {
 
   $config_files.each |String $file| {
     file { "${configuration_directory}/${file}":
@@ -55,7 +41,6 @@ class postfix::config (
     file { "${configuration_directory}/${dbfile}":
       audit => 'content',
       content => file("postfix/${::fqdn}/${configuration_directory}/${dbfile}"),
-      #require => File["${configuration_directory}/${dbfile}"],
     }
   }
 

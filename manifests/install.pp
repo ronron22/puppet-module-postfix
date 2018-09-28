@@ -1,8 +1,4 @@
-class postfix::install (
-
-	$postfix_packages = hiera('postfix_packages'),
-
-	) inherits postfix {
+class postfix::install inherits postfix {
         
 		$postfix_packages.each |String $package|{
 			package { $package: 
