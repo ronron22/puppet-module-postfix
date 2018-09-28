@@ -32,7 +32,7 @@ postfix::config::postfix_files_content:
   - pcre.files
   - sqlite.files
 
-postfix::config::sasl_files_directory:
+postfix::config::sasl_files_directory: sasl
 postfix::config::sasl_files:
   - smtp.conf
   - smtpd.conf
