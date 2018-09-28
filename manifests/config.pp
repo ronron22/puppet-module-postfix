@@ -15,7 +15,7 @@ class postfix::config inherits postfix {
 
   file { "${postfix_files_full_directory}":
     ensure => 'directory',
-    mode    =>  '0755',
+    mode   => '0755',
   }
 
   $postfix_files_content.each |String $file| {
@@ -27,7 +27,7 @@ class postfix::config inherits postfix {
 
   file { "${sasl_files_full_directory}":
     ensure => 'directory',
-    mode    =>  '0755',
+    mode   => '0755',
   }
 
   $sasl_files.each |String $file| {
@@ -39,14 +39,14 @@ class postfix::config inherits postfix {
 
   $db_files.each |String $dbfile| {
     file { "${configuration_directory}/${dbfile}":
-      audit => 'content',
+      audit   => 'content',
       content => file("postfix/${::fqdn}/${configuration_directory}/${dbfile}"),
     }
   }
 
   $db_files.each |String $dbfile| {
     exec {"postfix.recreate.${dbfile}":
-      command => "/usr/sbin/postmap ${configuration_directory}/${dbfile}",
+      command     => "/usr/sbin/postmap ${configuration_directory}/${dbfile}",
       path        => ['/usr/bin', '/usr/sbin'],
       subscribe   => File["${configuration_directory}/${dbfile}"],
       refreshonly => true,
@@ -56,8 +56,8 @@ class postfix::config inherits postfix {
   $db_files.each |String $dbfile| {
     exec {"postfix.create.${dbfile}":
       command => "/usr/sbin/postmap ${configuration_directory}/${dbfile}", 
-      path        => ['/usr/bin', '/usr/sbin'],
-      onlyif =>  "test ! -f ${configuration_directory}/${dbfile}.db",
+      path    => ['/usr/bin', '/usr/sbin'],
+      onlyif  => "test ! -f ${configuration_directory}/${dbfile}.db",
     }
   }
 
