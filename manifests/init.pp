@@ -1,7 +1,9 @@
 class postfix {
         
-	include postfix::install
-	include postfix::config
-	include postfix::service
+  anchor { 'postfix::begin': } ->
+  class { '::postfix::install': } ->
+  class { '::postfix::config': } ~>
+  class { '::postfix::service': } ->
+  anchor { 'postfix::end': }
 
 }
