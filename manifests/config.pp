@@ -17,14 +17,14 @@ class postfix::config (
   $config_files.each |String $file| {
     file { "${configuration_directory}/${file}":
       content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
-      require => File["${configuration_directory}"],
+      require => File[${configuration_directory}],
     }
   }
 
   $access_files.each |String $file| {
     file { "${configuration_directory}/${file}":
       content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
-      require => File["${configuration_directory}"],
+      require => File[${configuration_directory}],
     }
   }
 
@@ -36,7 +36,7 @@ class postfix::config (
   $postfix_files_content.each |String $file| {
     file { "${postfix_files_full_directory}/${file}":
       content => file("postfix/${::fqdn}${postfix_files_full_directory}/${file}"),
-      require => File["${postfix_files_full_directory}"],
+      require => File[${postfix_files_full_directory}],
     }
   }
 
@@ -48,7 +48,7 @@ class postfix::config (
   $sasl_files.each |String $file| {
     file { "${sasl_files_full_directory}${file}":
       content => file("postfix/${::fqdn}${sasl_files_full_directory}/${file}"),
-      require => File["${sasl_files_full_directory}"],
+      require => File[${sasl_files_full_directory}],
     }
   }
 
