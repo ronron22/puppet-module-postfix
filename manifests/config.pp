@@ -3,8 +3,9 @@ class postfix::config (
 	String $configuration_directory,
 	String $service_name = hiera('postfix::service::service_name'),
   String $postfix_files_directory, 
-  String $sasl_files_directory = "${configuration_directory}${sasl_files_directory} 
-  $postfix_files_directory = "${configuration_directory}${postfix_files_directory}" 
+  String $sasl_files_directory,
+  String $sasl_files_directory = "${configuration_directory}${sasl_files_directory}",
+  String $postfix_files_directory = "${configuration_directory}${postfix_files_directory}", 
 
 	Array $db_files,
 	Array $postfix_files_content,
