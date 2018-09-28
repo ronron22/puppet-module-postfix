@@ -7,6 +7,8 @@ class postfix::config (
   $sasl_files_full_directory    = "${configuration_directory}${sasl_files_directory}",
   $postfix_files_full_directory = "${configuration_directory}${postfix_files_directory}", 
 
+	Array $config_files,
+	Array $access_files,
 	Array $db_files,
 	Array $postfix_files_content,
 	Array $sasl_files,
