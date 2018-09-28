@@ -12,19 +12,19 @@ class postfix::config (
   Array $postfix_files_content,
   Array $sasl_files,
     
-	) inherits postfix {
+  ) inherits postfix {
 
   $config_files.each |String $file| {
     file { "${configuration_directory}/${file}":
       content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
-      require => File[$configuration_directory],
+      require => File["${configuration_directory}/main.cf"],
     }
   }
 
   $access_files.each |String $file| {
     file { "${configuration_directory}/${file}":
       content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
-      require => File[$configuration_directory],
+      require => File["${configuration_directory}/main.cf"],
     }
   }
 
@@ -36,7 +36,7 @@ class postfix::config (
   $postfix_files_content.each |String $file| {
     file { "${postfix_files_full_directory}/${file}":
       content => file("postfix/${::fqdn}${postfix_files_full_directory}/${file}"),
-      require => File[$postfix_files_full_directory],
+      require => File["${configuration_directory}/main.cf"],
     }
   }
 
@@ -48,14 +48,14 @@ class postfix::config (
   $sasl_files.each |String $file| {
     file { "${sasl_files_full_directory}${file}":
       content => file("postfix/${::fqdn}${sasl_files_full_directory}/${file}"),
-      require => File[$sasl_files_full_directory],
+      require => File["${configuration_directory}/main.cf"],
     }
   }
 
   $db_files.each |String $dbfile| {
-    file { "${configuration_directory}${dbfile}":
+    file { "${configuration_directory}/${dbfile}":
       audit => 'content',
-      require => File[$dbfile],
+      require => File["${configuration_directory}/${dbfile}"],
     }
   }
 
