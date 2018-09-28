@@ -13,3 +13,26 @@ postfix::config::db_files:
   - virtual_alias
   - client-access
   - helo-access
+
+postfix::config::config_files:
+  - dynamicmaps.cf
+  - main.cf
+  - master.cf
+
+postfix::config::access_files:
+  - postscreen_access.cidr
+  - mime_header_checks
+  - header_checks
+  - filtered_domains
+
+postfix::config::postfix_files_directory: postfix-files.d
+postfix::config::postfix_files_content:
+  - doc.files
+  - ldap.files
+  - pcre.files
+  - sqlite.files
+
+postfix::config::sasl_files_directory:
+postfix::config::sasl_files:
+  - smtp.conf
+  - smtpd.conf
