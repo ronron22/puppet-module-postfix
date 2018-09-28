@@ -17,7 +17,6 @@ class postfix::config (
   $config_files.each |String $file| {
     file { "${configuration_directory}/${file}":
       content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
-      require => File["${configuration_directory}/main.cf"],
     }
   }
 
