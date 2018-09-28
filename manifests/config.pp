@@ -4,8 +4,8 @@ class postfix::config (
   String $postfix_files_directory, 
   String $sasl_files_directory,
   String $service_name          = hiera('postfix::service::service_name'),
-  $sasl_files_full_directory    = "${configuration_directory}${sasl_files_directory}",
-  $postfix_files_full_directory = "${configuration_directory}${postfix_files_directory}", 
+  $sasl_files_full_directory    = "${configuration_directory}/${sasl_files_directory}",
+  $postfix_files_full_directory = "${configuration_directory}/${postfix_files_directory}", 
   Array $config_files,
   Array $access_files,
   Array $db_files,
@@ -15,15 +15,15 @@ class postfix::config (
 	) inherits postfix {
 
   $config_files.each |String $file| {
-    file { "${configuration_directory}${file}":
-      content => file("postfix/${::fqdn}/${configuration_directory}${file}"),
+    file { "${configuration_directory}/${file}":
+      content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
       require => File["${configuration_directory}"],
     }
   }
 
   $access_files.each |String $file| {
-    file { "${configuration_directory}${file}":
-      content => file("postfix/${::fqdn}/${configuration_directory}${file}"),
+    file { "${configuration_directory}/${file}":
+      content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
       require => File["${configuration_directory}"],
     }
   }
@@ -34,8 +34,8 @@ class postfix::config (
   }
 
   $postfix_files_content.each |String $file| {
-    file { "${postfix_files_full_directory}${file}":
-      content => file("postfix/${::fqdn}${postfix_files_full_directory}${file}"),
+    file { "${postfix_files_full_directory}/${file}":
+      content => file("postfix/${::fqdn}${postfix_files_full_directory}/${file}"),
       require => File["${postfix_files_full_directory}"],
     }
   }
@@ -47,7 +47,7 @@ class postfix::config (
 
   $sasl_files.each |String $file| {
     file { "${sasl_files_full_directory}${file}":
-      content => file("postfix/${::fqdn}${sasl_files_full_directory}${file}"),
+      content => file("postfix/${::fqdn}${sasl_files_full_directory}/${file}"),
       require => File["${sasl_files_full_directory}"],
     }
   }
@@ -63,7 +63,7 @@ class postfix::config (
     exec {"postfix.recreate.${dbfile}":
       command => "/usr/sbin/postmap ${configuration_directory}/${dbfile}",
       path        => ['/usr/bin', '/usr/sbin'],
-      subscribe   => File["${configuration_directory}${dbfile}"],
+      subscribe   => File["${configuration_directory}/${dbfile}"],
       refreshonly => true,
     }
   }
