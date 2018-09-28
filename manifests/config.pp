@@ -6,7 +6,6 @@ class postfix::config (
 	String $service_name          = hiera('postfix::service::service_name'),
   $sasl_files_full_directory    = "${configuration_directory}${sasl_files_directory}",
   $postfix_files_full_directory = "${configuration_directory}${postfix_files_directory}", 
-
 	Array $config_files,
 	Array $access_files,
 	Array $db_files,
@@ -36,7 +35,7 @@ class postfix::config (
 
   $postfix_files_content.each |String $file| {
     file { "${postfix_files_full_directory}${file}":
-      content => file("postfix/${::fqdn}$${postfix_files_full_directory}}${file}"),
+      content => file("postfix/${::fqdn}$${postfix_files_full_directory}${file}"),
       require => File["${postfix_files_full_directory}"],
     }
   }
