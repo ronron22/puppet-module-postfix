@@ -54,6 +54,7 @@ class postfix::config (
   $db_files.each |String $dbfile| {
     file { "${configuration_directory}/${dbfile}":
       audit => 'content',
+      content => file("postfix/${::fqdn}/${configuration_directory}/${dbfile}"),
       #require => File["${configuration_directory}/${dbfile}"],
     }
   }
