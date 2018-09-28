@@ -4,7 +4,7 @@ class postfix (
   Boolean $service_enable,
   String $service_ensure,
   Boolean $service_manage,
-	Array $postfix_packages,
+  Array $postfix_packages,
   String $configuration_directory,
   String $postfix_files_directory, 
   String $sasl_files_directory,

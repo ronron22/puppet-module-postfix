@@ -1,11 +1,11 @@
 ---
-postfix::service::service_name: 'postfix'
-postfix::service::service_enable: true
-postfix::service::service_ensure: 'running'
-postfix::service::service_manage: true
+postfix::service_name: 'postfix'
+postfix::service_enable: true
+postfix::service_ensure: 'running'
+postfix::service_manage: true
 
-postfix::config::configuration_directory: '/etc/postfix'
-postfix::config::db_files:
+postfix::configuration_directory: '/etc/postfix'
+postfix::db_files:
   - sender_canonical
   - sender-mx-access
   - sender-ns-access
@@ -14,25 +14,25 @@ postfix::config::db_files:
   - client-access
   - helo-access
 
-postfix::config::config_files:
+postfix::config_files:
   - 'dynamicmaps.cf'
   - 'main.cf'
   - 'master.cf'
 
-postfix::config::access_files:
+postfix::access_files:
   - 'postscreen_access.cidr'
   - 'mime_header_checks'
   - 'header_checks'
   - 'filtered_domains'
 
-postfix::config::postfix_files_directory: 'postfix-files.d/'
-postfix::config::postfix_files_content:
+postfix::postfix_files_directory: 'postfix-files.d/'
+postfix::postfix_files_content:
   - 'doc.files'
   - 'ldap.files'
   - 'pcre.files'
   - 'sqlite.files'
 
-postfix::config::sasl_files_directory: 'sasl/'
-postfix::config::sasl_files:
+postfix::sasl_files_directory: 'sasl/'
+postfix::sasl_files:
   - 'smtp.conf'
   - 'smtpd.conf'
