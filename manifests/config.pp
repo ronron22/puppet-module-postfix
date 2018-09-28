@@ -4,7 +4,7 @@ class postfix::config (
 	String $service_name = hiera('postfix::service::service_name'),
 	Array $db_files,
   String $sasl_files_directory = "${configuration_directory}${sasl_files_directory} 
-  String $postfix_files_directory = "${configuration_directory}${postfix_files_directory}" 
+  $postfix_files_directory = "${configuration_directory}${postfix_files_directory}" 
     
 	) inherits postfix {
 
