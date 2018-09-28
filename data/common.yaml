@@ -4,7 +4,7 @@ postfix::service::service_enable: true
 postfix::service::service_ensure: 'running'
 postfix::service::service_manage: true
 
-postfix::config::configuration_directory: '/etc/postfix'
+postfix::config::configuration_directory: '/etc/postfix/'
 postfix::config::db_files:
   - sender_canonical
   - sender-mx-access
