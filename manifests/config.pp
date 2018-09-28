@@ -1,11 +1,13 @@
 class postfix::config (
 
 	String $configuration_directory,
+  String $postfix_files_full_directory, 
+  String $sasl_files_full_directory,
+
 	String $service_name = hiera('postfix::service::service_name'),
-  String $postfix_files_directory, 
-  String $sasl_files_directory,
-  String $sasl_files_directory = "${configuration_directory}${sasl_files_directory}",
-  String $postfix_files_directory = "${configuration_directory}${postfix_files_directory}", 
+
+  String $sasl_files_full_directory = "${configuration_directory}${sasl_files_directory}",
+  String $tpostfix_files_full_directory = "${configuration_directory}${postfix_files_directory}", 
 
 	Array $db_files,
 	Array $postfix_files_content,
@@ -27,27 +29,27 @@ class postfix::config (
     }
   }
 
-  file { "${postfix_files_directory}":
+  file { "${postfix_files_full_directory}":
     ensure => 'directory',
     mode    =>  '0755',
   }
 
   $postfix_files_content.each |String $file| {
-    file { "${postfix_files_directory}${file}":
-      content => file("postfix/${::fqdn}$${postfix_files_directory}}${file}"),
-      require => File["${postfix_files_directory}"],
+    file { "${postfix_files_full_directory}${file}":
+      content => file("postfix/${::fqdn}$${postfix_files_full_directory}}${file}"),
+      require => File["${postfix_files_full_directory}"],
     }
   }
 
-  file { "${sasl_files_directory}":
+  file { "${sasl_files_full_directory}":
     ensure => 'directory',
     mode    =>  '0755',
   }
 
   $sasl_files.each |String $file| {
-    file { "${sasl_files_directory}${file}":
-      content => file("postfix/${::fqdn}${sasl_files_directory}${file}"),
-      require => File["${sasl_files_directory}"],
+    file { "${sasl_files_full_directory}${file}":
+      content => file("postfix/${::fqdn}${sasl_files_full_directory}${file}"),
+      require => File["${sasl_files_full_directory}"],
     }
   }
 
