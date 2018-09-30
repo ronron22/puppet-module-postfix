@@ -1,6 +1,34 @@
 
 # architux_postfix
 
+## Todo
+
+In config.pp, add source file's checking like
+
+### Before
+
+```bash
+$access_files.each |String $file| {
+    file { "${configuration_directory}/${file}":
+      content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
+      require => File["${configuration_directory}/main.cf"],
+    }
+  }
+```
+
+### After
+ 
+```bash
+$access_files.each |String $file| {
+    file { "${configuration_directory}/${file}":
+      content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
+      require => File["postfix/${::fqdn}/${configuration_directory}/${file}"],
+    }
+  }
+```
+
+
+
 #### Table of Contents
 
 1. [Description](#description)
@@ -21,6 +49,13 @@ This a postfix module, it's a minimal module :
 * compile db file's if needed
 
 ## Setup
+
+```bash
+include postfix
+```
+
+You can find all params on the top of init.pp
+
 
 ### Beginning with architux_postfix
 
@@ -55,7 +90,7 @@ For each element (class, defined type, function, and so on), list:
 
 ### $service_name
 
-then service name
+the service name
 
 #### type String 
 
@@ -70,26 +105,124 @@ if service must be enable
 Status of service : running or stopped
 
 #### type String 
-###  Boolean $service_manage,
-###  Array $postfix_packages,
-###  String $configuration_directory,
-###  String $postfix_files_directory, 
-###  String $sasl_files_directory,
-###  $sasl_files_full_directory    = "${configuration_directory}/${sasl_files_directory}",
-###  $postfix_files_full_directory = "${configuration_directory}/${postfix_files_directory}", 
-###  Array $config_files,
-###  Array $access_files,
-###  Array $db_files,
-###  Array $postfix_files_content,
-###  Array $sasl_files,
+
+### $service_manage
+
+It is managed ?
+
+#### type Boolean
+
+### $postfix_packages
+
+Array of packages name's
+
+#### type Array
+
+### $configuration_directory
+
+Normaly **/etc/postfix**
+
+#### type String
+
+### $postfix_files_directory
+
+Normaly **/etc/postfix/postfix-files**
+
+#### type String 
+
+### $sasl_files_directory
+
+Normaly **/etc/postfix/sasl/**
+
+#### type String 
+
+### Array $config_files
+
+The main postfix configuration file's
+
+Exemple
+
+```bash
+postfix::config_files:
+  - 'dynamicmaps.cf'
+  - 'main.cf'
+  - 'master.cf'
+```
+
+#### type Array
+
+### Array $access_files
+
+the postfix acl file's
+
+Exemple
+
+```bash
+postfix::access_files:
+  - 'postscreen_access.cidr'
+  - 'mime_header_checks'
+  - 'header_checks'
+  - 'filtered_domains'
+```
+
+#### type Array
+
+### Array $db_files
+
+the db file's, typicaly for postfix acl's
+
+Exemple
+
+```bash
+postfix::db_files:
+  - sender_canonical
+  - virtual
+  - virtual_alias
+  - client-access
+  - helo-access
+```
+
+#### type Array
+
+### Array $postfix_files_content
+
+typically **/etc/postfix/postfix-files.d/**
+
+Exemple
+
+```bash
+postfix::postfix_files_content:
+  - 'doc.files'
+  - 'ldap.files'
+  - 'pcre.files'
+  - 'sqlite.files'
+```
+
+#### type Array
+
+### Array $sasl_files
+
+Content of **/etc/postfix/sasl/**
+
+Exemple
+
+```bash
+postfix::sasl_files:
+  - 'smtp.conf'
+  - 'smtpd.conf'
+```
+
+#### type Array
 
 ## Limitations
 
-In the Limitations section, list any incompatibilities, known issues, or other warnings.
+Only work with debian..
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing to your project and how they should submit their work.
+
+No rules
+
 
 ## Release Notes/Contributors/Etc. **Optional**
 
