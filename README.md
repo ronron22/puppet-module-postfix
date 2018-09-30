@@ -1,7 +1,7 @@
 
 # architux_postfix
 
-## Todo
+## Todo
 
 In config.pp, add source file's checking like
 
