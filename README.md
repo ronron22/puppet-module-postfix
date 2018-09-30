@@ -7,7 +7,7 @@ In config.pp, add source file's checking like
 
 ### Before
 
-```bash
+```puppet
 $access_files.each |String $file| {
     file { "${configuration_directory}/${file}":
       content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
@@ -18,7 +18,7 @@ $access_files.each |String $file| {
 
 ### After
  
-```bash
+```puppet
 $access_files.each |String $file| {
     file { "${configuration_directory}/${file}":
       content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
@@ -53,7 +53,7 @@ This a postfix module, it's a minimal module :
 Only work on Debian.
 PLease use this module only on Puppet5.
 
-```bash
+```puppet
 include postfix
 ```
 
@@ -67,12 +67,12 @@ Push configuration file's in hiera, files must exists !!!
 
 Define variables in hiera file's, don't forget to consult the hiera module file's in 
 
-```bash
+```puppet
 postfix/hiera.yaml
 ```
 et
 
-```bash
+```puppet
 posfix/data/* 
 ```
 
@@ -143,7 +143,7 @@ The main postfix configuration file's
 
 Exemple
 
-```bash
+```puppet
 postfix::config_files:
   - 'dynamicmaps.cf'
   - 'main.cf'
@@ -158,7 +158,7 @@ the postfix acl file's
 
 Exemple
 
-```bash
+```puppet
 postfix::access_files:
   - 'postscreen_access.cidr'
   - 'mime_header_checks'
@@ -174,7 +174,7 @@ the db file's, typicaly for postfix acl's
 
 Exemple
 
-```bash
+```puppet
 postfix::db_files:
   - sender_canonical
   - virtual
@@ -191,7 +191,7 @@ typically **/etc/postfix/postfix-files.d/**
 
 Exemple
 
-```bash
+```puppet
 postfix::postfix_files_content:
   - 'doc.files'
   - 'ldap.files'
@@ -207,7 +207,7 @@ Content of **/etc/postfix/sasl/**
 
 Exemple
 
-```bash
+```puppet
 postfix::sasl_files:
   - 'smtp.conf'
   - 'smtpd.conf'
