@@ -50,12 +50,14 @@ This a postfix module, it's a minimal module :
 
 ## Setup
 
+Only work on Debian.
+PLease use this module only on Puppet5.
+
 ```bash
 include postfix
 ```
 
 You can find all params on the top of init.pp
-
 
 ### Beginning with architux_postfix
 
@@ -73,7 +75,6 @@ et
 ```bash
 posfix/data/* 
 ```
-
 
 ## Reference
 
@@ -220,9 +221,7 @@ Only work with debian..
 
 ## Development
 
-
 No rules
-
 
 ## Release Notes/Contributors/Etc. **Optional**
 
