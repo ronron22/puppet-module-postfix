@@ -1,20 +1,6 @@
 
 # architux_postfix
 
-## Todo
-
-* add /etc/alias managment
-
-Welcome to your new module. A short overview of the generated parts can be found in the PDK documentation at https://puppet.com/pdk/latest/pdk_generating_modules.html .
-
-The README template below provides a starting point with details about what information to include in your README.
-
-
-
-
-
-
-
 #### Table of Contents
 
 1. [Description](#description)
@@ -28,36 +14,31 @@ The README template below provides a starting point with details about what info
 
 ## Description
 
-Briefly tell users why they might want to use your module. Explain what your module does and what kind of problems users can solve with it.
-
-This should be a fairly short description helps the user decide if your module is what they want.
-
+This a postfix module, it's a minimal module :
+* install postfix with postscreen
+* push of configuration files
+* audit db file's for compiling them 
+* compile db file's if needed
 
 ## Setup
 
-### What architux_postfix affects **OPTIONAL**
-
-If it's obvious what your module touches, you can skip this section. For example, folks can probably figure out that your mysql_instance module affects their MySQL instances.
-
-If there's more that they should know about, though, this is the place to mention:
-
-* Files, packages, services, or operations that the module will alter, impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled, another module, etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you might want to include an additional "Upgrading" section here.
-
 ### Beginning with architux_postfix
 
-The very basic steps needed for a user to get the module up and running. This can include setup steps, if necessary, or it can be an example of the most basic use of the module.
+Push configuration file's in hiera, files must exists !!!
 
 ## Usage
 
-Include usage examples for common use cases in the **Usage** section. Show your users how to use your module to solve problems, and be sure to include code examples. Include three to five examples of the most important or common tasks a user can accomplish with your module. Show users how to accomplish more complex tasks that involve different types, classes, and functions working in tandem.
+Define variables in hiera file's, don't forget to consult the hiera module file's in 
+
+```bash
+postfix/hiera.yaml
+```
+et
+
+```bash
+posfix/data/* 
+```
+
 
 ## Reference
 
@@ -72,19 +53,35 @@ For each element (class, defined type, function, and so on), list:
   * Valid values, if the data type doesn't make it obvious.
   * Default value, if any.
 
-For example:
+### $service_name
 
-```
-### `pet::cat`
+then service name
 
-#### Parameters
+#### type String 
 
-##### `meow`
+### $service_enable
 
-Enables vocalization in your cat. Valid options: 'string'.
+if service must be enable
 
-Default: 'medium-loud'.
-```
+#### type Boolean 
+
+### $service_ensure,
+
+Status of service : running or stopped
+
+#### type String 
+###  Boolean $service_manage,
+###  Array $postfix_packages,
+###  String $configuration_directory,
+###  String $postfix_files_directory, 
+###  String $sasl_files_directory,
+###  $sasl_files_full_directory    = "${configuration_directory}/${sasl_files_directory}",
+###  $postfix_files_full_directory = "${configuration_directory}/${postfix_files_directory}", 
+###  Array $config_files,
+###  Array $access_files,
+###  Array $db_files,
+###  Array $postfix_files_content,
+###  Array $sasl_files,
 
 ## Limitations
 
