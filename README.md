@@ -78,11 +78,6 @@ posfix/data/*
 
 ## Reference
 
-  * The data type, if applicable.
-  * A description of what the element does.
-  * Valid values, if the data type doesn't make it obvious.
-  * Default value, if any.
-
 ### $service_name
 
 the service name
