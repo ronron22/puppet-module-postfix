@@ -98,13 +98,13 @@ Status of service : running or stopped
 
 ### $service_manage
 
-It is managed ?
+Is it managed ?
 
 #### type Boolean
 
 ### $postfix_packages
 
-Array of packages name's
+Array of packages
 
 #### type Array
 
@@ -143,7 +143,7 @@ postfix::config_files:
 
 ### Array $access_files
 
-the postfix acl file's
+the postfix acl file's (not berkeley db)
 
 Exemple
 
@@ -159,7 +159,7 @@ postfix::access_files:
 
 ### Array $db_files
 
-the db file's, typicaly for postfix acl's
+the berkeley db file's, typicaly for postfix acl's
 
 Exemple
 
