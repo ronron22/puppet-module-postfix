@@ -152,17 +152,17 @@ postscreen_non_smtp_command_enable = yes
 postscreen_non_smtp_command_action = enforce
 postscreen_bare_newline_enable = yes
 postscreen_bare_newline_action = enforce
+## end of postscreen ##
 <% } -%>
 
-<% if $postfix::enable_mailbox_transport {-%>
-mailbox_transport = $enable_mailbox_transport
+<% if $postfix::mailbox_transport {-%>
+mailbox_transport = <% $postfix::mailbox_transport %>
 <% } -%>
 
 <% if $postfix::virtual_mailbox_domains {-%>
 virtual_mailbox_domains = 
 <% $postfix::virtual_mailbox_domains.each |$domain| {-%> <%= " ${domain}\n" %> <% } -%>
 <% } -%>
-
 <% if $postfix::virtual_mailbox_base {-%>
 virtual_mailbox_base = <%= $postfix::virtual_mailbox_base %>
 <% } -%>

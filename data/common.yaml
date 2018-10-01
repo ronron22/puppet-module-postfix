@@ -56,7 +56,7 @@ postfix::postscreen_dnsbl_sites:
   - 'dnsbl.ahbl.org'
   - 'bl.spamcop.net'
   - 'dnsbl.sorbs.net'  
-postfix::enable_mailbox_transport: true
+postfix::mailbox_transport: 'lmtp:127.0.0.1:24'
 postfix::enable_virtual_mailbox_domains:
 postfix::virtual_mailbox_domains:
   - 'toto.com'
