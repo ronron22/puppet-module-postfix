@@ -30,14 +30,15 @@ class postfix (
   Boolean $enable_smtpd_recipient_restrictions,
   Boolean $enable_header_checks,
   Boolean $enable_mime_header_checks,
-  Boolean $enable_mime_postscreen,
+  Boolean $enable_postscreen,
+  Array   $postscreen_dnsbl_sites,
   Boolean $enable_mailbox_transport,
-  Boolean $enable_virtual_mailbox_domains,
-  Boolean $enable_virtual_mailbox_base,
-  Boolean $enable_virtual_mailbox_maps,
-  Boolean $enable_virtual_uid_maps,
-  Boolean $enable_virtual_gid_maps,
-  Boolean $enable_virtual_transport,
+  Array   $virtual_mailbox_domains,
+  String  $virtual_mailbox_base,
+  String  $virtual_mailbox_maps,
+  String  $virtual_uid_maps,
+  String  $virtual_gid_maps,
+  String  $virtual_transport,
 
   ) {
 

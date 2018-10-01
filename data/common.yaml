@@ -49,11 +49,21 @@ postfix::enable_smtpd_sender_restrictions: true
 postfix::enable_smtpd_recipient_restrictions: true
 postfix::enable_header_checks: true
 postfix::enable_mime_header_checks: true
-postfix::enable_mime_postscreen: true
+postfix::enable_postscreen: true
+postfix::postscreen_dnsbl_sites:
+  - 'zen.spamhaus.org*3'
+  - 'bl.spameatingmonkey.net*2'
+  - 'dnsbl.ahbl.org'
+  - 'bl.spamcop.net'
+  - 'dnsbl.sorbs.net'  
 postfix::enable_mailbox_transport: true
-postfix::enable_virtual_mailbox_domains: true
-postfix::enable_virtual_mailbox_base: true
-postfix::enable_virtual_mailbox_maps: true
-postfix::enable_virtual_uid_maps: true
-postfix::enable_virtual_gid_maps: true
-postfix::enable_virtual_transport: true
+postfix::enable_virtual_mailbox_domains:
+postfix::virtual_mailbox_domains:
+  - 'toto.com'
+  - 'tata.com'
+postfix::virtual_mailbox_base: '/var/spool/vmail'
+postfix::virtual_mailbox_maps: 'hash:/etc/postfix/virtual'
+postfix::virtual_alias_maps: 'hash:/etc/postfix/virtual_alias'
+postfix::virtual_uid_maps: 'static:999'
+postfix::virtual_gid_maps: 'static:999'
+postfix::virtual_transport: 'lmtp:localhost:24'

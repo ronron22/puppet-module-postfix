@@ -1,3 +1,5 @@
+# Managed by puppet.
+
 mail_name = POSTFIX
 smtpd_banner = ESMTP $mail_name
 
@@ -129,61 +131,52 @@ header_checks = pcre:/etc/postfix/header_checks
 mime_header_checks = regexp:/etc/postfix/mime_header_checks
 <% } -%>
 
-<% if $postfix::enable_mime_postscreen {-%>
+<% if $postfix::enable_postscreen {-%>
+### POSTSCREEN ###
 postscreen_access_list = 
-    permit_mynetworks,
-    cidr:/etc/postfix/postscreen_access.cidr
-
+  permit_mynetworks,
+  cidr:/etc/postfix/postscreen_access.cidr
 postscreen_blacklist_action = enforce
-
+<% if $postfix::postscreen_dnsbl_sites {-%>
 postscreen_dnsbl_sites =
-        zen.spamhaus.org*3
-        #dnsbl.njabl.org*2
-        bl.spameatingmonkey.net*2
-        dnsbl.ahbl.org
-        bl.spamcop.net
-        dnsbl.sorbs.net
-
+<% $postfix::postscreen_dnsbl_sites.each |$site| {-%> <%= " ${site}\n" %> <% } -%>
+<% } -%>
 postscreen_dnsbl_threshold = 3
 postscreen_dnsbl_action = enforce
-
 postscreen_greet_banner = Bienvenue et merci d'attendre
 postscreen_greet_action = enforce
-
 postscreen_pipelining_enable = yes
 postscreen_pipelining_action = enforce
-
 postscreen_non_smtp_command_enable = yes
 postscreen_non_smtp_command_action = enforce
-
 postscreen_bare_newline_enable = yes
 postscreen_bare_newline_action = enforce
 <% } -%>
 
 <% if $postfix::enable_mailbox_transport {-%>
-mailbox_transport = lmtp:127.0.0.1:24
+mailbox_transport = $enable_mailbox_transport
 <% } -%>
 
-<% if $postfix::enable_virtual_mailbox_domains {-%>
-virtual_mailbox_domains = agacio.com, codecedre.com, keltia-magazine.com, associationtaiga.com, ipsteel.com, unigo.fr
+<% if $postfix::virtual_mailbox_domains {-%>
+virtual_mailbox_domains = 
+<% $postfix::virtual_mailbox_domains.each |$domain| {-%> <%= " ${domain}\n" %> <% } -%>
 <% } -%>
 
-<% if $postfix::enable_virtual_mailbox_base {-%>
-virtual_mailbox_base = /var/spool/vmail
+<% if $postfix::virtual_mailbox_base {-%>
+virtual_mailbox_base = <%= $postfix::virtual_mailbox_base %>
 <% } -%>
-
-<% if $postfix::enable_virtual_mailbox_maps {-%>
-virtual_mailbox_maps = hash:/etc/postfix/virtual
+<% if $postfix::virtual_mailbox_maps {-%>
+virtual_mailbox_maps = <%= $postfix::virtual_mailbox_maps %>
 <% } -%>
-
-<% if $postfix::enable_virtual_uid_maps {-%>
-virtual_uid_maps = static:999
+<% if $postfix::virtual_alias_maps {-%>
+virtual_alias_maps = <%= $postfix::virtual_alias_maps %>
 <% } -%>
-
-<% if $postfix::enable_virtual_gid_maps {-%>
-virtual_gid_maps = static:999
+<% if $postfix::virtual_uid_maps {-%>
+virtual_uid_maps = <%= $postfix::virtual_uid_maps %>
 <% } -%>
-
-<% if $postfix::enable_virtual_transport {-%>
-virtual_transport = lmtp:localhost:24
+<% if $postfix::virtual_gid_maps {-%>
+virtual_gid_maps = <%= $postfix::virtual_gid_maps %>
+<% } -%>
+<% if $postfix::virtual_transport {-%>
+virtual_transport = <%= $postfix::virtual_transport %>
 <% } -%>
