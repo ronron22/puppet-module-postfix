@@ -27,8 +27,6 @@ $access_files.each |String $file| {
   }
 ```
 
-
-
 #### Table of Contents
 
 1. [Description](#description)

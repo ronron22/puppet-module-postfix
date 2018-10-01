@@ -16,6 +16,29 @@ class postfix (
   Array $postfix_files_content,
   Array $sasl_files,
 
+  ## templating
+  Boolean $enable_debug,
+  Boolean $enable_server_ssl,
+  Boolean $enable_client_ssl,
+  Boolean $enable_sasl,
+  Boolean $enable_ldap_alias,
+  Boolean $enable_message_size_limit,
+  Boolean $enable_milter,
+  Boolean $enable_smtpd_client_restrictions,
+  Boolean $enable_smtpd_helo_restrictions, 
+  Boolean $enable_smtpd_sender_restrictions,
+  Boolean $enable_smtpd_recipient_restrictions,
+  Boolean $enable_header_checks,
+  Boolean $enable_mime_header_checks,
+  Boolean $enable_mime_postscreen,
+  Boolean $enable_mailbox_transport,
+  Boolean $enable_virtual_mailbox_domains,
+  Boolean $enable_virtual_mailbox_base,
+  Boolean $enable_virtual_mailbox_maps,
+  Boolean $enable_virtual_uid_maps,
+  Boolean $enable_virtual_gid_maps,
+  Boolean $enable_virtual_transport,
+
   ) {
 
   anchor { 'postfix::begin': } ->
