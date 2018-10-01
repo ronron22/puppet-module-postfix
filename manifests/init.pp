@@ -32,7 +32,7 @@ class postfix (
   String  $mime_header_checks,
   Boolean $enable_postscreen,
   Array   $postscreen_dnsbl_sites,
-  Boolean $enable_mailbox_transport,
+  String $mailbox_transport,
   Array   $virtual_mailbox_domains,
   String  $virtual_mailbox_base,
   String  $virtual_mailbox_maps,
