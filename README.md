@@ -57,6 +57,16 @@ PLease use this module only on Puppet5.
 include postfix
 ```
 
+or for override a value 
+
+```puppet
+class { 'postfix':
+  configuration_directory => '/etc/postfix',
+}
+```
+
+In your profile directory by example.
+
 You can find all params on the top of init.pp
 
 ### Beginning with architux_postfix
