@@ -47,8 +47,8 @@ postfix::enable_smtpd_client_restrictions: true
 postfix::enable_smtpd_helo_restrictions: true
 postfix::enable_smtpd_sender_restrictions: true
 postfix::enable_smtpd_recipient_restrictions: true
-postfix::enable_header_checks: true
-postfix::enable_mime_header_checks: true
+postfix::header_checks: 'pcre:/etc/postfix/header_checks'
+postfix::mime_header_checks: 'regexp:/etc/postfix/mime_header_checks'
 postfix::enable_postscreen: true
 postfix::postscreen_dnsbl_sites:
   - 'zen.spamhaus.org*3'

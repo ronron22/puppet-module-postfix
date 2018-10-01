@@ -123,12 +123,13 @@ smtpd_recipient_restrictions =
     check_policy_service unix:private/policyd-spf
 <% } -%>
 
-<% if $postfix::enable_header_checks {-%>
-header_checks = pcre:/etc/postfix/header_checks
+<% if $postfix::header_checks {-%>
+### Header checks ###
+header_checks = <%= $postfix::header_checks %>
 <% } -%>
-
-<% if $postfix::enable_mime_header_checks {-%>
-mime_header_checks = regexp:/etc/postfix/mime_header_checks
+<% if $postfix::mime_header_checks {-%>
+### Attachment killer ###
+mime_header_checks = <%= $postfix::mime_header_checks %>
 <% } -%>
 
 <% if $postfix::enable_postscreen {-%>
