@@ -156,7 +156,7 @@ postscreen_bare_newline_action = enforce
 <% } -%>
 
 <% if $postfix::mailbox_transport {-%>
-mailbox_transport = <% $postfix::mailbox_transport %>
+mailbox_transport = <%= $postfix::mailbox_transport %>
 <% } -%>
 
 <% if $postfix::virtual_mailbox_domains {-%>
