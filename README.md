@@ -134,7 +134,7 @@ Normaly **/etc/postfix/sasl/**
 
 #### type String 
 
-### Array $config_files
+### $config_files
 
 The main postfix configuration file's
 
@@ -149,7 +149,7 @@ postfix::config_files:
 
 #### type Array
 
-### Array $access_files
+### $access_files
 
 the postfix acl file's (not berkeley db)
 
@@ -165,7 +165,7 @@ postfix::access_files:
 
 #### type Array
 
-### Array $db_files
+### $db_files
 
 the berkeley db file's, typicaly for postfix acl's
 
@@ -182,7 +182,7 @@ postfix::db_files:
 
 #### type Array
 
-### Array $postfix_files_content
+### $postfix_files_content
 
 typically **/etc/postfix/postfix-files.d/**
 
@@ -198,7 +198,7 @@ postfix::postfix_files_content:
 
 #### type Array
 
-### Array $sasl_files
+### $sasl_files
 
 Content of **/etc/postfix/sasl/**
 
@@ -219,7 +219,3 @@ Only work with debian..
 ## Development
 
 No rules
-
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header.

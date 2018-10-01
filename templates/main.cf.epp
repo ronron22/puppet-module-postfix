@@ -32,7 +32,6 @@ smtpd_tls_ciphers = high
 smtp_tls_mandatory_ciphers = high
 smtp_tls_mandatory_exclude_ciphers = RC4, MD5, DES
 smtp_tls_exclude_ciphers = aNULL, RC4, MD5, DES, 3DES
-disable monitor
 <% } -%>
 
 <% if $postfix::enable_client_ssl {-%>
@@ -98,11 +97,13 @@ smtpd_client_restrictions =
 <% } -%>
 
 <% if $postfix::enable_smtpd_helo_restrictions {-%>
+smtpd_helo_restrictions =
     permit_mynetworks,
     permit_sasl_authenticated,
 <% } -%>
 
 <% if $postfix::enable_smtpd_sender_restrictions {-%>
+smtpd_sender_restrictions =
     permit_mynetworks,
     permit_sasl_authenticated,
     reject_unauth_destination,
@@ -112,6 +113,7 @@ smtpd_client_restrictions =
 <% } -%>
 
 <% if $postfix::enable_smtpd_recipient_restrictions {-%>
+smtpd_recipient_restrictions =
     check_recipient_access hash:/etc/postfix/filtered_domains,
     permit_sasl_authenticated,
     permit_mynetworks,

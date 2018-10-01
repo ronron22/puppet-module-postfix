@@ -16,7 +16,6 @@ postfix::db_files:
 
 postfix::config_files:
   - 'dynamicmaps.cf'
-  - 'main.cf'
   - 'master.cf'
 
 postfix::access_files:
@@ -36,3 +35,45 @@ postfix::sasl_files_directory: 'sasl/'
 postfix::sasl_files:
   - 'smtp.conf'
   - 'smtpd.conf'
+
+postfix::enable_debug: true 
+postfix::: true
+postfix::: true
+postfix::service_name: true
+postfix::service_enable: true
+postfix::service_ensure: true
+postfix::service_manage: true
+postfix::postfix_packages: true
+postfix::configuration_directory: true
+postfix::postfix_files_directory, : true
+postfix::sasl_files_directory: true
+postfix::sasl_files_full_directory    = ": true
+postfix::postfix_files_full_directory = ": true
+postfix::config_files: true
+postfix::access_files: true
+postfix::db_files: true
+postfix::postfix_files_content: true
+postfix::sasl_files: true
+
+
+postfix::enable_debug: true
+postfix::enable_server_ssl: true
+postfix::enable_client_ssl: true
+postfix::enable_sasl: true
+postfix::enable_ldap_alias: true
+postfix::enable_message_size_limit: true
+postfix::enable_milter: true
+postfix::enable_smtpd_client_restrictions: true
+postfix::enable_smtpd_helo_restrictions: true
+postfix::enable_smtpd_sender_restrictions: true
+postfix::enable_smtpd_recipient_restrictions: true
+postfix::enable_header_checks: true
+postfix::enable_mime_header_checks: true
+postfix::enable_mime_postscreen: true
+postfix::enable_mailbox_transport: true
+postfix::enable_virtual_mailbox_domains: true
+postfix::enable_virtual_mailbox_base: true
+postfix::enable_virtual_mailbox_maps: true
+postfix::enable_virtual_uid_maps: true
+postfix::enable_virtual_gid_maps: true
+postfix::enable_virtual_transport: true
