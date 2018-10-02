@@ -22,6 +22,7 @@ class postfix (
   Boolean $enable_client_ssl,
   Boolean $enable_sasl,
   Boolean $enable_ldap_alias,
+  String  $sender_canonical_maps,
   String  $message_size_limit,
   Array   $milters,
   Array   $smtpd_milters,
