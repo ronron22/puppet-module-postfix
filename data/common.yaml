@@ -41,8 +41,7 @@ postfix::enable_server_ssl: true
 postfix::enable_client_ssl: true
 postfix::enable_sasl: true
 postfix::enable_ldap_alias: true
-postfix::message_size_limit: 
-  - '153600000'
+postfix::message_size_limit: '153600000'
 postfix::milters: 
   - 'milter_protocol = 6'
   - 'milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}'
