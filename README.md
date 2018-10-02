@@ -3,29 +3,7 @@
 
 ## Todo
 
-In config.pp, add source file's checking like
-
-### Before
-
-```puppet
-$access_files.each |String $file| {
-    file { "${configuration_directory}/${file}":
-      content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
-      require => File["${configuration_directory}/main.cf"],
-    }
-  }
-```
-
-### After
- 
-```puppet
-$access_files.each |String $file| {
-    file { "${configuration_directory}/${file}":
-      content => file("postfix/${::fqdn}/${configuration_directory}/${file}"),
-      require => File["postfix/${::fqdn}/${configuration_directory}/${file}"],
-    }
-  }
-```
+...
 
 #### Table of Contents
 
