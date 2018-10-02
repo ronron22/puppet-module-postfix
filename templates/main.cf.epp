@@ -83,13 +83,13 @@ message_size_limit = <%= $postfix::message_size_limit %>
 <% } -%>
 
 <% if $postfix::milters {-%>
-  <% if $postfix::smtpd_milters {-%>
+<% if $postfix::smtpd_milters {-%>
 smtpd_milters = <% $postfix::smtpd_milters.each |$milter| {-%> <%= " ${milter}\n" %> <% } -%>
-  <% } -%>
+<% } -%>
 
-  <% if $postfix::non_smtpd_milters {-%>
+<% if $postfix::non_smtpd_milters {-%>
 non_smtpd_milters = <% $postfix::non_smtpd_milters.each |$milter| {-%> <%= " ${milter}\n" %> <% } -%>
-  <% } -%>
+<% } -%>
 
 <% $postfix::milters.each |$milter| {-%> <%= "${milter}\n" %> <% } -%>
 <% } -%>
