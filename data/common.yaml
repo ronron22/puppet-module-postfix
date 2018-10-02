@@ -40,8 +40,14 @@ postfix::enable_debug: true
 postfix::enable_server_ssl: true
 postfix::enable_client_ssl: true
 postfix::enable_sasl: true
-postfix::enable_ldap_alias: true
 
+postfix::enable_ldap: true
+postfix::ldapaliases_server_host: 'localhost'
+postfix::ldapaliases_search_base: 'ou=People,dc=architux,dc=com'
+postfix::ldapaliases_scope: 'sub'
+postfix::ldapaliases_query_filter: '(cn=%s)'
+postfix::ldapaliases_result_attribute: 'mail'
+postfix::alias_map: 'hash:/etc/aliases,ldap:ldapaliases'
 postfix::sender_canonical: 'hash:/etc/postfix/sender_canonical'
 postfix::message_size_limit: '153600000'
 postfix::milters: 

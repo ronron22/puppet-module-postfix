@@ -50,17 +50,28 @@ broken_sasl_auth_clients = yes
 smtpd_sasl_authenticated_header = yes
 <% } -%>
 
-<% if $postfix::enable_ldap_alias {-%>
-ldapaliases_server_host = localhost
-ldapaliases_search_base = ou=People,dc=architux,dc=com
-ldapaliases_scope = sub
-ldapaliases_query_filter = (cn=%s)
-ldapaliases_result_attribute = mail
+<% if $postfix::ldap_alias {-%>
+<% if $postfix::ldapaliases_server_host {-%>
+ldapaliases_server_host = <%= $postfix::ldapaliases_server_host %>
+<% } -%>
+<% if $postfix::ldapaliases_search_base {-%>
+ldapaliases_search_base = <%= ou=People,dc=architux,dc=com %>
+<% } -%>
+<% if $postfix::ldapaliases_scope {-%>
+ldapaliases_scope = <%= $postfix::ldapaliases_scope %>
+<% } -%>
+<% if $postfix::ldapaliases_query_filter {-%>
+ldapaliases_query_filter = <%= $postfix::ldapaliases_query_filter %>
+<% } -%>
+<% if $postfix::ldapaliases_result_attribute {-%>
+ldapaliases_result_attribute = <%= $postfix::ldapaliases_result_attribute %>
+<% } -%>
+<% } -%>
 
+<% if $postfix::alias_maps {-%>
 alias_maps = hash:/etc/aliases,ldap:ldapaliases
 <% } -%>
 
-alias_maps = hash:/etc/aliases,ldap:ldapaliases
 alias_database = hash:/etc/aliases
 
 myorigin = /etc/mailname
