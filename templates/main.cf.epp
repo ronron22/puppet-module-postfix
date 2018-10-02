@@ -55,7 +55,7 @@ smtpd_sasl_authenticated_header = yes
 ldapaliases_server_host = <%= $postfix::ldapaliases_server_host %>
 <% } -%>
 <% if $postfix::ldapaliases_search_base {-%>
-ldapaliases_search_base = <%= ou=People,dc=architux,dc=com %>
+ldapaliases_search_base = <%= $postfix::ldapaliases_search_base %>
 <% } -%>
 <% if $postfix::ldapaliases_scope {-%>
 ldapaliases_scope = <%= $postfix::ldapaliases_scope %>

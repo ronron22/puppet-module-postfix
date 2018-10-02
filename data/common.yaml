@@ -48,7 +48,7 @@ postfix::ldapaliases_scope: 'sub'
 postfix::ldapaliases_query_filter: '(cn=%s)'
 postfix::ldapaliases_result_attribute: 'mail'
 postfix::alias_map: 'hash:/etc/aliases,ldap:ldapaliases'
-postfix::sender_canonical: 'hash:/etc/postfix/sender_canonical'
+postfix::sender_canonical_maps: 'hash:/etc/postfix/sender_canonical'
 postfix::message_size_limit: '153600000'
 postfix::milters: 
   - 'milter_protocol = 6'
