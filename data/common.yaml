@@ -41,12 +41,39 @@ postfix::enable_server_ssl: true
 postfix::enable_client_ssl: true
 postfix::enable_sasl: true
 postfix::enable_ldap_alias: true
-postfix::enable_message_size_limit: true
-postfix::enable_milter: true
-postfix::enable_smtpd_client_restrictions: true
-postfix::enable_smtpd_helo_restrictions: true
-postfix::enable_smtpd_sender_restrictions: true
-postfix::enable_smtpd_recipient_restrictions: true
+postfix::message_size_limit: 
+  - '153600000'
+postfix::milters: 
+  - 'milter_protocol = 6'
+  - 'milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}'
+  - 'milter_default_action = accept'
+postfix::smtpd_milters:
+  - 'inet:localhost:9998,'
+  - 'inet:localhost:11332'
+postfix::non_smtpd_milters:
+  - 'inet:localhost:8891'
+postfix::smtpd_client_restrictions:
+  - 'permit_mynetworks,'
+  - 'permit_sasl_authenticated,'
+  - 'check_client_access hash:/etc/postfix/client-access,'
+  - 'reject_unknown_reverse_client_hostname'
+postfix::smtpd_helo_restrictions:
+  - 'permit_mynetworks,'
+  - 'permit_sasl_authenticated,'
+postfix::smtpd_sender_restrictions:
+  - 'permit_mynetworks,'
+  - 'permit_sasl_authenticated,'
+  - 'reject_unauth_destination,'
+  - 'check_sender_mx_access hash:/etc/postfix/sender-mx-access,'
+  - 'check_sender_access regexp:/etc/postfix/sender-access,'
+  - 'check_sender_ns_access hash:/etc/postfix/sender-ns-access'
+postfix::smtpd_recipient_restrictions:
+  - 'check_recipient_access hash:/etc/postfix/filtered_domains,'
+  - 'permit_sasl_authenticated,'
+  - 'permit_mynetworks,'
+  - 'reject_unauth_destination,'
+  - 'check_policy_service unix:private/policyd-spf'
+
 postfix::header_checks: 'pcre:/etc/postfix/header_checks'
 postfix::mime_header_checks: 'regexp:/etc/postfix/mime_header_checks'
 postfix::enable_postscreen: true

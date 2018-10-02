@@ -78,49 +78,34 @@ inet_interfaces = all
 inet_protocols = ipv4
 html_directory = /usr/share/doc/postfix/html
 
-<% if $postfix::enable_message_size_limit {-%>
-message_size_limit = 153600000
+<% if $postfix::message_size_limit {-%>
+message_size_limit = <%= $postfix::message_size_limit %>
 <% } -%>
 
-<% if $postfix::enable_milter {-%>
-smtpd_milters = inet:localhost:9998, inet:localhost:11332
-non_smtpd_milters = inet:localhost:8891
-milter_protocol = 6
-milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}
-milter_default_action = accept
+<% if $postfix::milter {-%>
+<% if $postfix::smtpd_milters {-%>
+smtpd_milters = <% $postfix::smtpd_milters.each |$milter| {-%> <%= " ${milter}\n" %> <% } -%>
+<% } -%>
+<% if $postfix::non_smtpd_milters {-%>
+non_smtpd_milters = <% $postfix::non_smtpd_milters.each |$milter| {-%> <%= " ${milter}\n" %> <% } -%>
+<% $postfix::$postfix::milters.each |$milter| {-%> <%= " ${milter}\n" %>
+<% } -%>
 <% } -%>
 
 <% if $postfix::enable_smtpd_client_restrictions {-%>
-smtpd_client_restrictions = 
-    permit_mynetworks,
-    permit_sasl_authenticated,
-    check_client_access hash:/etc/postfix/client-access,
-    reject_unknown_reverse_client_hostname
+smtpd_client_restrictions = <% $postfix::smtpd_client_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%> 
 <% } -%>
 
-<% if $postfix::enable_smtpd_helo_restrictions {-%>
-smtpd_helo_restrictions =
-    permit_mynetworks,
-    permit_sasl_authenticated,
+<% if $postfix::smtpd_helo_restrictions {-%>
+smtpd_helo_restrictions = <% $postfix::smtpd_helo_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%>
 <% } -%>
 
-<% if $postfix::enable_smtpd_sender_restrictions {-%>
-smtpd_sender_restrictions =
-    permit_mynetworks,
-    permit_sasl_authenticated,
-    reject_unauth_destination,
-    check_sender_mx_access hash:/etc/postfix/sender-mx-access,
-    check_sender_access regexp:/etc/postfix/sender-access,
-    check_sender_ns_access hash:/etc/postfix/sender-ns-access
+<% if $postfix::smtpd_sender_restrictions {-%>
+smtpd_sender_restrictions = <% $postfix::smtpd_sender_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%>
 <% } -%>
 
-<% if $postfix::enable_smtpd_recipient_restrictions {-%>
-smtpd_recipient_restrictions =
-    check_recipient_access hash:/etc/postfix/filtered_domains,
-    permit_sasl_authenticated,
-    permit_mynetworks,
-    reject_unauth_destination,
-    check_policy_service unix:private/policyd-spf
+<% if $postfix::smtpd_recipient_restrictions {-%>
+smtpd_recipient_restrictions = <% $postfix::smtpd_recipient_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%>
 <% } -%>
 
 <% if $postfix::header_checks {-%>
@@ -142,6 +127,7 @@ postscreen_blacklist_action = enforce
 postscreen_dnsbl_sites =
 <% $postfix::postscreen_dnsbl_sites.each |$site| {-%> <%= " ${site}\n" %> <% } -%>
 <% } -%>
+
 postscreen_dnsbl_threshold = 3
 postscreen_dnsbl_action = enforce
 postscreen_greet_banner = Bienvenue et merci d'attendre
@@ -163,6 +149,7 @@ mailbox_transport = <%= $postfix::mailbox_transport %>
 virtual_mailbox_domains = 
 <% $postfix::virtual_mailbox_domains.each |$domain| {-%> <%= " ${domain}\n" %> <% } -%>
 <% } -%>
+
 <% if $postfix::virtual_mailbox_base {-%>
 virtual_mailbox_base = <%= $postfix::virtual_mailbox_base %>
 <% } -%>
