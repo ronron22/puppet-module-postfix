@@ -21,7 +21,7 @@ class postfix (
   Boolean $enable_server_ssl,
   Boolean $enable_client_ssl,
   Boolean $enable_sasl,
-  Boolean $enable_ldap,
+  Boolean $enable_ldap_alias,
   String  $ldapaliases_server_host,
   String  $ldapaliases_search_base,
   String  $ldapaliases_scope,
