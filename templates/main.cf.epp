@@ -50,7 +50,7 @@ broken_sasl_auth_clients = yes
 smtpd_sasl_authenticated_header = yes
 <% } -%>
 
-<% if $postfix::ldap_alias {-%>
+<% if $postfix::enable_ldap_alias {-%>
 <% if $postfix::ldapaliases_server_host {-%>
 ldapaliases_server_host = <%= $postfix::ldapaliases_server_host %>
 <% } -%>

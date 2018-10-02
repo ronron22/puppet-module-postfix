@@ -41,7 +41,7 @@ postfix::enable_server_ssl: true
 postfix::enable_client_ssl: true
 postfix::enable_sasl: true
 
-postfix::enable_ldap: true
+postfix::enable_ldap_alias: true
 postfix::ldapaliases_server_host: 'localhost'
 postfix::ldapaliases_search_base: 'ou=People,dc=architux,dc=com'
 postfix::ldapaliases_scope: 'sub'
