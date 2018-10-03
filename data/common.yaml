@@ -87,7 +87,8 @@ postfix::alias_map: 'hash:/etc/aliases,ldap:ldapaliases'
 postfix::alias_database: 'hash:/etc/aliases' 
 
 postfix::myorigin: '/etc/mailname'
-postfix::relay_domains: '$mydomain'
+postfix::relay_domains:
+  - '$mydomain'
 postfix::mydestination:
   - 'localhost.dedibox.fr'
   - 'localhost'

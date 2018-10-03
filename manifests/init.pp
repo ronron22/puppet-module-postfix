@@ -62,7 +62,7 @@ class postfix (
   String  $alias_map,
   String  $alias_database,
   String  $myorigin,
-  String  $relay_domains,
+  Array  $relay_domains,
   Array   $mydestination,
   String  $relayhost,
   Array   $mynetworks,

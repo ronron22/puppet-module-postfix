@@ -133,11 +133,9 @@ ldapaliases_query_filter = <%= $postfix::ldapaliases_query_filter %>
 ldapaliases_result_attribute = <%= $postfix::ldapaliases_result_attribute %>
 <% } -%>
 <% } -%>
-
 <% if $postfix::alias_maps {-%>
-alias_maps = hash:/etc/aliases,ldap:ldapaliases
+alias_maps = <%= $postfix::alias_maps %>
 <% } -%>
-
 <% if $postfix::alias_database {-%>
 alias_database = <%= $postfix::alias_database %>
 <% } -%>
@@ -146,11 +144,14 @@ alias_database = <%= $postfix::alias_database %>
 myorigin = <%= $postfix::myorigin %>
 <% } -%>
 <% if $postfix::relay_domains {-%>
-relay_domains = <% $postfix::relay_domains.each |$domain| {-%> <%= " ${domain}\n" %> <% } -%>
+relay_domains = 
+<% $postfix::relay_domains.each |$domain| {-%> <%= " ${domain}\n" %> <% } -%>
 <% } -%>
+
 <% if $postfix::mydestination {-%>
 mydestination = <% $postfix::mydestination.each |$destination| {-%> <%= " ${destination}\n" %> <% } -%>
 <% } -%>
+
 <% if $postfix::relayhost {-%>
 relayhost = <%= $postfix::relayhost %>  
 <% } -%>
