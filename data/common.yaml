@@ -37,8 +37,30 @@ postfix::sasl_files:
   - 'smtpd.conf'
 
 postfix::enable_debug: true
+
 postfix::enable_server_ssl: true
+postfix::smtpd_tls_cert_file: '/var/lib/dehydrated/certs/architux.com/cert.pem'
+postfix::smtpd_tls_key_file: '/var/lib/dehydrated/certs/architux.com/privkey.pem'
+postfix::smtpd_use_tls: 'yes'
+postfix::smtpd_tls_session_cache_database: 'btree:${data_directory}/smtpd_scache'
+postfix::smtp_tls_session_cache_database: 'btree:${data_directory}/smtp_scache'
+postfix::smtpd_tls_loglevel: '1'
+postfix::smtpd_tls_security_level: 'may'
+postfix::smtpd_tls_received_header: 'yes'
+postfix::smtpd_tls_session_cache_timeout: '3600s'
+postfix::smtpd_tls_mandatory_protocols: 'SSLv2,!SSLv3'
+postfix::postfix::smtp_tls_mandatory_protocols: 'SSLv2,!SSLv3'
+postfix::smtpd_tls_protocols: 'SSLv2,!SSLv3'
+postfix::smtp_tls_protocols: '!SSLv2,!SSLv3'
+postfix::smtpd_tls_ciphers: 'high'
+postfix::smtp_tls_mandatory_ciphers: 'high'
+postfix::smtp_tls_mandatory_exclude_ciphers: 'RC4, MD5, DES'
+postfix::smtp_tls_exclude_ciphers: 'aNULL, RC4, MD5, DES, 3DES'
+
 postfix::enable_client_ssl: true
+postfix::smtp_use_tls: 'yes'
+postfix::smtp_tls_note_starttls_offer: 'yes'
+postfix::smtp_tls_loglevel: '1'
 
 postfix::enable_sasl: true
 postfix::smtpd_sasl_local_domain: '$myhostname'

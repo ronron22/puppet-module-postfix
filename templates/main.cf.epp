@@ -16,31 +16,71 @@ delay_warning_time = 4h
 
 <% if $postfix::enable_server_ssl {-%>
 ### SSL SERVER ###
-smtpd_tls_cert_file=/var/lib/dehydrated/certs/architux.com/cert.pem
-smtpd_tls_key_file=/var/lib/dehydrated/certs/architux.com/privkey.pem
-smtpd_use_tls=yes
-smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
-smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
-smtpd_tls_loglevel = 1
-smtpd_tls_security_level = may
-smtpd_tls_received_header = yes
-smtpd_tls_session_cache_timeout = 3600s
-smtpd_tls_mandatory_protocols=!SSLv2,!SSLv3
-smtp_tls_mandatory_protocols=!SSLv2,!SSLv3
-smtpd_tls_protocols=!SSLv2,!SSLv3
-smtp_tls_protocols=!SSLv2,!SSLv3
+<% if $postfix::smtpd_tls_cert_file {-%>
+smtpd_tls_cert_file = <% $postfix::smtpd_tls_cert_file %>
+<% } -%>
+<% if $postfix::smtpd_tls_key_file {-%>
+smtpd_tls_key_file = <%= $postfix::smtpd_tls_key_file %>
+<% } -%>
+<% if $postfix::smtpd_use_tls {-%>
+smtpd_use_tls = <%= $postfix::smtpd_use_tls %>
+<% } -%>
+<% if $postfix::smtpd_tls_session_cache_database {-%>
+smtpd_tls_session_cache_database = <%= $postfix::smtpd_tls_session_cache_database %>
+<% } -%>
+<% if $postfix::smtp_tls_session_cache_database {-%>
+smtp_tls_session_cache_database = <%= $postfix::smtp_tls_session_cache_database %>
+<% } -%>
+<% if $postfix::smtpd_tls_loglevel {-%>
+smtpd_tls_loglevel = <%= $postfix::smtpd_tls_loglevel %>
+<% } -%>
+<% if $postfix::smtpd_tls_security_level {-%>
+smtpd_tls_security_level = <%= $postfix::smtpd_tls_security_level %>
+<% } -%>
+<% if $postfix::smtpd_tls_received_header {-%>
+smtpd_tls_received_header = <%= $postfix::smtpd_tls_received_header %>
+<% } -%>
+<% if $postfix::smtpd_tls_session_cache_timeout {-%>
+smtpd_tls_session_cache_timeout = <%= $postfix::smtpd_tls_session_cache_timeout %>
+<% } -%>
+<% if $postfix::smtpd_tls_mandatory_protocols {-%>
+smtpd_tls_mandatory_protocols = <%= $postfix::smtpd_tls_mandatory_protocols %>
+<% } -%>
+<% if $postfix::smtp_tls_mandatory_protocols {-%>
+smtp_tls_mandatory_protocols = <%= $postfix::smtp_tls_mandatory_protocols %>
+<% } -%>
+<% if $postfix::smtpd_tls_protocols {-%>
+smtpd_tls_protocols = <%= $postfix::smtpd_tls_protocols %>
+<% } -%>
+<% if $postfix::smtp_tls_protocols {-%>
+smtp_tls_protocols = <%= $postfix::smtp_tls_protocols %>
+<% } -%>
 
-smtpd_tls_ciphers = high
-smtp_tls_mandatory_ciphers = high
-smtp_tls_mandatory_exclude_ciphers = RC4, MD5, DES
-smtp_tls_exclude_ciphers = aNULL, RC4, MD5, DES, 3DES
+<% if $postfix::smtpd_tls_ciphers {-%>
+smtpd_tls_ciphers = <%= $postfix::smtpd_tls_ciphers %>
+<% } -%>
+<% if $postfix::smtp_tls_mandatory_ciphers {-%>
+smtp_tls_mandatory_ciphers = <%= $postfix::smtp_tls_mandatory_ciphers %>
+<% } -%>
+<% if $postfix::smtp_tls_mandatory_exclude_ciphers {-%>
+smtp_tls_mandatory_exclude_ciphers = <%= $postfix::smtp_tls_mandatory_exclude_ciphers %>
+<% } -%>
+<% if $postfix::smtp_tls_exclude_ciphers {-%>
+smtp_tls_exclude_ciphers = <%= $postfix::smtp_tls_exclude_ciphers %>
+<% } -%>
 <% } -%>
 
 <% if $postfix::enable_client_ssl {-%>
 ### SSL CLIENT ###
-smtp_use_tls = yes
-smtp_tls_note_starttls_offer = yes
-smtp_tls_loglevel = 1
+<% if $postfix::smtp_use_tls {-%>
+smtp_use_tls = <%= $postfix::smtp_use_tls %>
+<% } -%>
+<% if $postfix::smtp_tls_note_starttls_offer {-%>
+smtp_tls_note_starttls_offer = <%= $postfix::smtp_tls_note_starttls_offer %>
+<% } -%>
+<% if $postfix::smtp_tls_loglevel {-%>
+smtp_tls_loglevel = <% $postfix::smtp_tls_loglevel %>
+<% } -%>
 <% } -%>
 
 <% if $postfix::enable_sasl {-%>
