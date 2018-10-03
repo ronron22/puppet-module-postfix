@@ -17,7 +17,7 @@ delay_warning_time = 4h
 <% if $postfix::enable_server_ssl {-%>
 ### SSL SERVER ###
 <% if $postfix::smtpd_tls_cert_file {-%>
-smtpd_tls_cert_file = <% $postfix::smtpd_tls_cert_file %>
+smtpd_tls_cert_file = <%= $postfix::smtpd_tls_cert_file %>
 <% } -%>
 <% if $postfix::smtpd_tls_key_file {-%>
 smtpd_tls_key_file = <%= $postfix::smtpd_tls_key_file %>
@@ -79,7 +79,7 @@ smtp_use_tls = <%= $postfix::smtp_use_tls %>
 smtp_tls_note_starttls_offer = <%= $postfix::smtp_tls_note_starttls_offer %>
 <% } -%>
 <% if $postfix::smtp_tls_loglevel {-%>
-smtp_tls_loglevel = <% $postfix::smtp_tls_loglevel %>
+smtp_tls_loglevel = <%= $postfix::smtp_tls_loglevel %>
 <% } -%>
 <% } -%>
 
