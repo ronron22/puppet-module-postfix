@@ -1,17 +1,33 @@
 # Managed by puppet.
 
-mail_name = POSTFIX
-smtpd_banner = ESMTP $mail_name
-
-myhostname = architux.com
-mydomain = $myhostname
-smtp_helo_name = mail.architux.com
+<% if $postfix::mail_name {-%>
+mail_name = <%= $postfix::mail_name %>
+<% } -%>
+<% if $postfix::smtpd_banner {-%>
+smtpd_banner = <%= $postfix::smtpd_banner %>
+<% } -%>
+<% if $postfix::myhostname {-%>
+myhostname = <%= $postfix::myhostname %>
+<% } -%>
+<% if $postfix::mydomain {-%>
+mydomain = <%= $postfix::mydomain %>
+<% } -%>
+<% if $postfix::smtp_helo_name {-%>
+smtp_helo_name = <%= $postfix::smtp_helo_name %>
+<% } -%>
 
 <% if $postfix::enable_debug {-%>
-#debug_peer_list = codecedre.com,keltia-magazine.com, agacio.com
-debug_peer_list = 
-soft_bounce = no
-delay_warning_time = 4h
+### DEBUG ###
+<% if $postfix::debug_peer_list {-%>
+# add domains to debug
+debug_peer_list = <%= $post::debug_peer_list %>
+<% } -%>
+<% if $postfix::soft_bounce {-%>
+soft_bounce = <%= $postfix::soft_bounce %>
+<% } -%>
+<% if $postfix::delay_warning_time {-%>
+delay_warning_time = <%= $postfix::delay_warning_time %>
+<% } -%>
 <% } -%>
 
 <% if $postfix::enable_server_ssl {-%>
@@ -122,24 +138,46 @@ ldapaliases_result_attribute = <%= $postfix::ldapaliases_result_attribute %>
 alias_maps = hash:/etc/aliases,ldap:ldapaliases
 <% } -%>
 
-alias_database = hash:/etc/aliases
+<% if $postfix::alias_database {-%>
+alias_database = <%= $postfix::alias_database %>
+<% } -%>
 
-myorigin = /etc/mailname
-relay_domains = $mydomain
-mydestination = localhost.dedibox.fr, localhost, opendns.io, architux.com, $mydomain, $myhostname, 127.0.0.1 
-relayhost = 
-mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128, architux.com, agacio.com, codecedre.com, 62.39.240.206, 88.191.254.8, 88.191.254.9, keltia-magazine.com, 91.121.5.106, 82.239.175.46, 88.191.38.159, 88.190.21.164, sd-29381.dedibox.fr, unigo.fr, 10.100.0.0/16, iweb3, iweb3.architux.com, 10.100.0.12, 88.190.21.164, 88.190.230.187, 88.190.230.216, 88.190.230.222, 80.14.43.225, 176.180.243.83, 10.100.0.22, 88.164.73.109, 88.14.43.225, 88.123.216.199, 195.154.236.164, 163.172.214.190, opendns.io, 88.121.201.61, $myhostname, localhost.$mydomain 
+<% if $postfix::myorigin {-%>
+myorigin = <%= $postfix::myorigin %>
+<% } -%>
+<% if $postfix::relay_domains {-%>
+relay_domains = <% $postfix::relay_domains.each |$domain| {-%> <%= " ${domain}\n" %> <% } -%>
+<% } -%>
+<% if $postfix::mydestination {-%>
+mydestination = <% $postfix::mydestination.each |$destination| {-%> <%= " ${destination}\n" %> <% } -%>
+<% } -%>
+<% if $postfix::relayhost {-%>
+relayhost = <%= $postfix::relayhost %>  
+<% } -%>
+<% if $postfix::mynetworks {-%>
+mynetworks = <% $postfix::mynetworks.each |$network| {-%> <%= " ${network}\n" %> <% } -%>
+<% } -%>
 
 <% if $postfix::sender_canonical_maps {-%>
 sender_canonical_maps = <%= $postfix::sender_canonical_maps %>
 <% } -%>
 
 #mailbox_command = procmail -a "$EXTENSION"
-mailbox_size_limit = 0
-recipient_delimiter = +
-inet_interfaces = all
-inet_protocols = ipv4
-html_directory = /usr/share/doc/postfix/html
+<% if $postfix::mailbox_size_limit {-%>
+mailbox_size_limit = <%= $postfix::mailbox_size_limit %>
+<% } -%>
+<% if $postfix::recipient_delimiter {-%>
+recipient_delimiter = <%= $postfix::recipient_delimiter %>
+<% } -%>
+<% if $postfix::inet_interfaces {-%>
+inet_interfaces = <%= $postfix::inet_interfaces %>
+<% } -%>
+<% if $postfix::inet_protocols {-%>
+inet_protocols = <%= $postfix::inet_protocols %>
+<% } -%>
+<% if $postfix::html_directory {-%>
+html_directory = <%= $postfix::html_directory %>
+<% } -%>
 
 <% if $postfix::message_size_limit {-%>
 message_size_limit = <%= $postfix::message_size_limit %>

@@ -17,6 +17,12 @@ class postfix (
   Array   $sasl_files,
 
   ## templating
+	String  $mail_name,
+	String  $smtpd_banner,
+	String  $myhostname,
+	String  $mydomain,
+	String  $smtp_helo_name,
+
   Boolean $enable_debug,
   Boolean $enable_server_ssl,
 	String  $smtpd_tls_cert_file,
@@ -54,8 +60,20 @@ class postfix (
   String  $ldapaliases_query_filter,
   String  $ldapaliases_result_attribute,
   String  $alias_map,
+  String  $alias_database,
+  String  $myorigin,
+  String  $relay_domains,
+  Array   $mydestination,
+  String  $relayhost,
+  Array   $mynetworks,
   String  $sender_canonical_maps,
   String  $message_size_limit,
+	String  $mailbox_size_limit,
+	String  $recipient_delimiter,
+	String  $inet_interfaces,
+	String  $inet_protocols,
+	String  $html_directory,
+
   Array   $milters,
   Array   $smtpd_milters,
   Array   $non_smtpd_milters,
