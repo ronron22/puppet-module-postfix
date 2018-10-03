@@ -45,36 +45,36 @@ smtp_tls_loglevel = 1
 
 <% if $postfix::enable_sasl {-%>
 ### SASL ###
-  <% if $postfix::smtpd_sasl_local_domain {-%>
+<% if $postfix::smtpd_sasl_local_domain {-%>
 smtpd_sasl_local_domain = <%= $postfix::smtpd_sasl_local_domain %>
-  <% } -%>
-  <% if $postfix::smtpd_sasl_auth_enable {-%>
+<% } -%>
+<% if $postfix::smtpd_sasl_auth_enable {-%>
 smtpd_sasl_auth_enable = <%= $postfix::smtpd_sasl_auth_enable %>
-  <% } -%>
-  <% if $postfix::broken_sasl_auth_clients {-%>
+<% } -%>
+<% if $postfix::broken_sasl_auth_clients {-%>
 broken_sasl_auth_clients = <%= $postfix::broken_sasl_auth_clients %>
-  <% } -%>
-  <% if $postfix::smtpd_sasl_smtpd_sasl_authenticated_header {-%>
+<% } -%>
+<% if $postfix::smtpd_sasl_smtpd_sasl_authenticated_header {-%>
 smtpd_sasl_authenticated_header = <%= $postfix::smtpd_sasl_authenticated_header %>
-  <% } -%>
+<% } -%>
 <% } -%>
 
 <% if $postfix::enable_ldap_alias {-%>
-  <% if $postfix::ldapaliases_server_host {-%>
+<% if $postfix::ldapaliases_server_host {-%>
 ldapaliases_server_host = <%= $postfix::ldapaliases_server_host %>
-  <% } -%>
-  <% if $postfix::ldapaliases_search_base {-%>
+<% } -%>
+<% if $postfix::ldapaliases_search_base {-%>
 ldapaliases_search_base = <%= $postfix::ldapaliases_search_base %>
-  <% } -%>
-  <% if $postfix::ldapaliases_scope {-%>
+<% } -%>
+<% if $postfix::ldapaliases_scope {-%>
 ldapaliases_scope = <%= $postfix::ldapaliases_scope %>
-  <% } -%>
-  <% if $postfix::ldapaliases_query_filter {-%>
+<% } -%>
+<% if $postfix::ldapaliases_query_filter {-%>
 ldapaliases_query_filter = <%= $postfix::ldapaliases_query_filter %>
-  <% } -%>
-  <% if $postfix::ldapaliases_result_attribute {-%>
+<% } -%>
+<% if $postfix::ldapaliases_result_attribute {-%>
 ldapaliases_result_attribute = <%= $postfix::ldapaliases_result_attribute %>
-  <% } -%>
+<% } -%>
 <% } -%>
 
 <% if $postfix::alias_maps {-%>
