@@ -144,19 +144,21 @@ alias_database = <%= $postfix::alias_database %>
 myorigin = <%= $postfix::myorigin %>
 <% } -%>
 <% if $postfix::relay_domains {-%>
-relay_domains = 
+relay_domains =
 <% $postfix::relay_domains.each |$domain| {-%> <%= " ${domain}\n" %> <% } -%>
 <% } -%>
 
 <% if $postfix::mydestination {-%>
-mydestination = <% $postfix::mydestination.each |$destination| {-%> <%= " ${destination}\n" %> <% } -%>
+mydestination =
+<% $postfix::mydestination.each |$destination| {-%> <%= " ${destination}\n" %> <% } -%>
 <% } -%>
 
 <% if $postfix::relayhost {-%>
 relayhost = <%= $postfix::relayhost %>  
 <% } -%>
 <% if $postfix::mynetworks {-%>
-mynetworks = <% $postfix::mynetworks.each |$network| {-%> <%= " ${network}\n" %> <% } -%>
+mynetworks =
+<% $postfix::mynetworks.each |$network| {-%> <%= " ${network}\n" %> <% } -%>
 <% } -%>
 
 <% if $postfix::sender_canonical_maps {-%>
@@ -187,30 +189,36 @@ message_size_limit = <%= $postfix::message_size_limit %>
 <% if $postfix::milters {-%>
 ### MILTERS ###
 <% if $postfix::smtpd_milters {-%>
-smtpd_milters = <% $postfix::smtpd_milters.each |$milter| {-%> <%= " ${milter}\n" %> <% } -%>
+smtpd_milters =
+<% $postfix::smtpd_milters.each |$milter| {-%> <%= " ${milter}\n" %> <% } -%>
 <% } -%>
 
 <% if $postfix::non_smtpd_milters {-%>
-non_smtpd_milters = <% $postfix::non_smtpd_milters.each |$milter| {-%> <%= " ${milter}\n" %> <% } -%>
+non_smtpd_milters =
+<% $postfix::non_smtpd_milters.each |$milter| {-%> <%= " ${milter}\n" <% } -%>
 <% } -%>
 
 <% $postfix::milters.each |$milter| {-%> <%= "${milter}\n" %> <% } -%>
 <% } -%>
 
 <% if $postfix::enable_smtpd_client_restrictions {-%>
-smtpd_client_restrictions = <% $postfix::smtpd_client_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%> 
+smtpd_client_restrictions =
+<% $postfix::smtpd_client_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%> 
 <% } -%>
 
 <% if $postfix::smtpd_helo_restrictions {-%>
-smtpd_helo_restrictions = <% $postfix::smtpd_helo_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%>
+smtpd_helo_restrictions =
+<% $postfix::smtpd_helo_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%>
 <% } -%>
 
 <% if $postfix::smtpd_sender_restrictions {-%>
-smtpd_sender_restrictions = <% $postfix::smtpd_sender_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%>
+smtpd_sender_restrictions =
+<% $postfix::smtpd_sender_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%>
 <% } -%>
 
 <% if $postfix::smtpd_recipient_restrictions {-%>
-smtpd_recipient_restrictions = <% $postfix::smtpd_recipient_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%>
+smtpd_recipient_restrictions =
+<% $postfix::smtpd_recipient_restrictions.each |$restriction| {-%> <%= " ${restriction}\n" %> <% } -%>
 <% } -%>
 
 <% if $postfix::header_checks {-%>
