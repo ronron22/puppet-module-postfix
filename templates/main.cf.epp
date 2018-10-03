@@ -15,7 +15,7 @@ delay_warning_time = 4h
 <% } -%>
 
 <% if $postfix::enable_server_ssl {-%>
-## server ##
+### SSL SERVER ###
 smtpd_tls_cert_file=/var/lib/dehydrated/certs/architux.com/cert.pem
 smtpd_tls_key_file=/var/lib/dehydrated/certs/architux.com/privkey.pem
 smtpd_use_tls=yes
@@ -37,7 +37,7 @@ smtp_tls_exclude_ciphers = aNULL, RC4, MD5, DES, 3DES
 <% } -%>
 
 <% if $postfix::enable_client_ssl {-%>
-## client ##
+### SSL CLIENT ###
 smtp_use_tls = yes
 smtp_tls_note_starttls_offer = yes
 smtp_tls_loglevel = 1
@@ -60,6 +60,7 @@ smtpd_sasl_authenticated_header = <%= $postfix::smtpd_sasl_authenticated_header 
 <% } -%>
 
 <% if $postfix::enable_ldap_alias {-%>
+### LDAP ALIAS ###
 <% if $postfix::ldapaliases_server_host {-%>
 ldapaliases_server_host = <%= $postfix::ldapaliases_server_host %>
 <% } -%>
@@ -134,11 +135,11 @@ smtpd_recipient_restrictions = <% $postfix::smtpd_recipient_restrictions.each |$
 <% } -%>
 
 <% if $postfix::header_checks {-%>
-### Header checks ###
+### HEADERS ###
 header_checks = <%= $postfix::header_checks %>
 <% } -%>
 <% if $postfix::mime_header_checks {-%>
-### Attachment killer ###
+# Attachment killer #
 mime_header_checks = <%= $postfix::mime_header_checks %>
 <% } -%>
 
