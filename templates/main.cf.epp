@@ -195,7 +195,7 @@ smtpd_milters =
 
 <% if $postfix::non_smtpd_milters {-%>
 non_smtpd_milters =
-<% $postfix::non_smtpd_milters.each |$milter| {-%> <%= " ${milter}\n" <% } -%>
+<% $postfix::non_smtpd_milters.each |$milter| {-%> <%= " ${milter}\n" %> <% } -%>
 <% } -%>
 
 <% $postfix::milters.each |$milter| {-%> <%= "${milter}\n" %> <% } -%>
