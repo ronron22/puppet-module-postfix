@@ -144,7 +144,7 @@ postfix::inet_interfaces: 'all'
 postfix::inet_protocols: 'ipv4'
 postfix::html_directory: '/usr/share/doc/postfix/html' 
 
-postfix::enable_milters: 'true'
+postfix::enable_milters: true
 postfix::milter_protocol: '6'
 postfix::milter_mail_macros: 'i {mail_addr} {client_addr} {client_name} {auth_authen}'
 postfix::milter_default_action: 'accept'
