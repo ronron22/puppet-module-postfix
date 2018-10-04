@@ -186,7 +186,7 @@ html_directory = <%= $postfix::html_directory %>
 message_size_limit = <%= $postfix::message_size_limit %>
 <% } -%>
 
-<% if $postfix::milters {-%>
+<% if $postfix::enable_milters {-%>
 ### MILTERS ###
 <% if $postfix::smtpd_milters {-%>
 smtpd_milters =
@@ -198,7 +198,15 @@ non_smtpd_milters =
 <% $postfix::non_smtpd_milters.each |$milter| {-%> <%= " ${milter}\n" %> <% } -%>
 <% } -%>
 
-<% $postfix::milters.each |$milter| {-%> <%= "${milter}\n" %> <% } -%>
+<% if $postfix::milter_protocol {-%>
+milter_protocol = <%= $postfix::milter_protocol %>
+<% } -%>
+<% if $postfix::milter_mail_macros {-%>
+milter_mail_macros = <%= $postfix::milter_mail_macros %>
+<% } -%>
+<% if $postfix::milter_default_action {-%>
+milter_default_action = <%= $postfix::milter_default_action %>
+<% } -%>
 <% } -%>
 
 <% if $postfix::enable_smtpd_client_restrictions {-%>

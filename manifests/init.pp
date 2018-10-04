@@ -80,9 +80,12 @@ class postfix (
   Optional[String]  $inet_protocols = undef,
   Optional[String]  $html_directory = undef,
 
-  Optional[Array]   $milters = undef,
+  Optional[Boolean] $enable_milters = undef,
   Optional[Array]   $smtpd_milters = undef,
   Optional[Array]   $non_smtpd_milters = undef,
+  Optional[String]  $milter_protocol = undef,
+  Optional[String]  $milter_mail_macros = undef,
+  Optional[String]  $milter_default_action = undef,
 
   Optional[Array]   $smtpd_client_restrictions = undef,
   Optional[Array]   $smtpd_helo_restrictions = undef, 

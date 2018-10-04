@@ -144,10 +144,11 @@ postfix::inet_interfaces: 'all'
 postfix::inet_protocols: 'ipv4'
 postfix::html_directory: '/usr/share/doc/postfix/html' 
 
-postfix::milters: 
-  - 'milter_protocol = 6'
-  - 'milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}'
-  - 'milter_default_action = accept'
+postfix::enable_milters: 'true'
+postfix::milter_protocol: '6'
+postfix::milter_mail_macros: 'i {mail_addr} {client_addr} {client_name} {auth_authen}'
+postfix::milter_default_action: 'accept'
+
 postfix::smtpd_milters:
   - 'inet:localhost:9998,'
   - 'inet:localhost:11332'
