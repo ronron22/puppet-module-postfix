@@ -8,7 +8,7 @@ smtp       inet  n       -       y       -       1       postscreen
 smtpd      pass  -       -       y       -       -       smtpd
 dnsblog    unix  -       -       y       -       0       dnsblog
 <% if $postfix::enable_sasl {-%>
-<% if $postfix::enable_submission {-%>
+<% if $postfix::submission {-%>
 ## SASL authentication ##
 submission inet n       -       -       -       -       smtpd
   -o syslog_name=postfix/submission
@@ -28,7 +28,7 @@ submission inet n       -       -       -       -       smtpd
 tlsproxy   unix  -       -       y       -       0       tlsproxy
 #628       inet  n       -       -       -       -       qmqpd
 <% if $postfix::enable_client_ssl {-%>
-<% if $postfix::enable_smtps {-%>
+<% if $postfix::smtps {-%>
 smtps      inet  n       -       y       -       -       smtpd
     -o syslog_name=postfix/smtps
     -o smtpd_tls_wrappermode=yes
@@ -67,13 +67,13 @@ anvil      unix  -       -       y       -       1       anvil
 scache     unix  -       -       y       -       1       scache
 maildrop  unix  -       n       n       -       -       pipe
   flags=DRhu user=vmail argv=/usr/bin/maildrop -d ${recipient}
-<% if $postfix::enable_cyrus {-%>
+<% if $postfix::cyrus {-%>
 ## CYRUS ##
 cyrus     unix  -       n       n       -       -       pipe
   user=cyrus argv=/cyrus/bin/deliver -e -r ${sender} -m ${extension} ${user}
 <% } -%>
 
-<% if $postfix::enable_policyd_spf {-%>
+<% if $postfix::policyd_spf {-%>
 ### SPF ###
 policyd-spf  unix  -       n       n       -       0       spawn
     user=policyd-spf argv=/usr/bin/policyd-spf

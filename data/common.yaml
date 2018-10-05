@@ -218,5 +218,5 @@ postfix::virtual_transport: 'lmtp:localhost:24'
 
 postfix::submission: true
 postfix::smtps: true
-postfix::enable_cyrus: true
-postfix::enable_policyd-spf: true
+postfix::cyrus: true
+postfix::policyd-spf: true
