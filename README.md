@@ -24,16 +24,32 @@ This a postfix module, it's a minimal module :
 * audit db file's for compiling them 
 * compile db file's if needed
 
+The idea behind this module is a strong separation **code** and **data**.  
+Code is in *.pp and data only in *.yaml file's (in data/)
+
+In my case, i combine Postfix with :
+
+* ldap
+* postscreen
+* sasl
+* ssl/tls
+* cyrus
+* milters
+* policyd
+
 ## Setup
 
-Only work on Debian.
-PLease use this module only on Puppet5.
+Today, only work on Debian.
+
+Use this module with Puppet5 only please.
+
+### Using it
 
 ```puppet
 include postfix
 ```
 
-or for override a value 
+or for override values 
 
 ```puppet
 class { 'postfix':
@@ -41,7 +57,7 @@ class { 'postfix':
 }
 ```
 
-In your profile directory by example.
+in your profile directory by example.
 
 You can find all params on the top of init.pp
 
@@ -64,131 +80,7 @@ posfix/data/*
 
 ## Reference
 
-### $service_name
-
-the service name
-
-#### type String 
-
-### $service_enable
-
-if service must be enable
-
-#### type Boolean 
-
-### $service_ensure,
-
-Status of service : running or stopped
-
-#### type String 
-
-### $service_manage
-
-Is it managed ?
-
-#### type Boolean
-
-### $postfix_packages
-
-Array of packages
-
-#### type Array
-
-### $configuration_directory
-
-Normaly **/etc/postfix**
-
-#### type String
-
-### $postfix_files_directory
-
-Normaly **/etc/postfix/postfix-files**
-
-#### type String 
-
-### $sasl_files_directory
-
-Normaly **/etc/postfix/sasl/**
-
-#### type String 
-
-### $config_files
-
-The main postfix configuration file's
-
-Exemple
-
-```puppet
-postfix::config_files:
-  - 'dynamicmaps.cf'
-  - 'main.cf'
-  - 'master.cf'
-```
-
-#### type Array
-
-### $access_files
-
-the postfix acl file's (not berkeley db)
-
-Exemple
-
-```puppet
-postfix::access_files:
-  - 'postscreen_access.cidr'
-  - 'mime_header_checks'
-  - 'header_checks'
-  - 'filtered_domains'
-```
-
-#### type Array
-
-### $db_files
-
-the berkeley db file's, typicaly for postfix acl's
-
-Exemple
-
-```puppet
-postfix::db_files:
-  - sender_canonical
-  - virtual
-  - virtual_alias
-  - client-access
-  - helo-access
-```
-
-#### type Array
-
-### $postfix_files_content
-
-typically **/etc/postfix/postfix-files.d/**
-
-Exemple
-
-```puppet
-postfix::postfix_files_content:
-  - 'doc.files'
-  - 'ldap.files'
-  - 'pcre.files'
-  - 'sqlite.files'
-```
-
-#### type Array
-
-### $sasl_files
-
-Content of **/etc/postfix/sasl/**
-
-Exemple
-
-```puppet
-postfix::sasl_files:
-  - 'smtp.conf'
-  - 'smtpd.conf'
-```
-
-#### type Array
+Too long for describe.. read the *example/common.yaml* and the *manisfest/init.pp* files please.
 
 ## Limitations
 
