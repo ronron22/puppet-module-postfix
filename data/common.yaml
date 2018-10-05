@@ -36,6 +36,8 @@ postfix::sasl_files:
   - 'smtp.conf'
   - 'smtpd.conf'
 
+## main.cf
+
 postfix::mail_name: 'POSTFIX'
 postfix::smtpd_banner: 'ESMTP $mail_name'
 postfix::myhostname: 'architux.com'
@@ -212,3 +214,10 @@ postfix::virtual_alias_maps: 'hash:/etc/postfix/virtual_alias'
 postfix::virtual_uid_maps: 'static:999'
 postfix::virtual_gid_maps: 'static:999'
 postfix::virtual_transport: 'lmtp:localhost:24'
+
+### Master.conf
+
+postfix::submission: true
+postfix::smtps: true
+postfix::enable_cyrus: true
+postfix::enable_policyd-spf: true

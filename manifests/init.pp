@@ -119,6 +119,11 @@ class postfix (
   Optional[String]  $virtual_gid_maps = undef,
   Optional[String]  $virtual_transport = undef,
 
+  Optional[Boolean] $enable_cyrus = undef,
+  Optional[Boolean] $enable_policyd_spf = undef,
+  Optional[Boolean] $enable_submission = undef,
+  Optional[Boolean] $enable_smtps = undef,
+
   ) {
 
   anchor { 'postfix::begin': } ->

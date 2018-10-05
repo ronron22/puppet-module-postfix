@@ -8,6 +8,7 @@ smtp       inet  n       -       y       -       1       postscreen
 smtpd      pass  -       -       y       -       -       smtpd
 dnsblog    unix  -       -       y       -       0       dnsblog
 <% if $postfix::enable_sasl {-%>
+<% if $postfix::submission {-%>
 ## SASL authentication ##
 submission inet n       -       -       -       -       smtpd
   -o syslog_name=postfix/submission
@@ -23,9 +24,11 @@ submission inet n       -       -       -       -       smtpd
   -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
   -o milter_macro_daemon_name=ORIGINATING
 <% } -%>
+<% } -%>
 tlsproxy   unix  -       -       y       -       0       tlsproxy
 #628       inet  n       -       -       -       -       qmqpd
 <% if $postfix::enable_client_ssl {-%>
+<% if $postfix::smtps {-%>
 smtps      inet  n       -       y       -       -       smtpd
     -o syslog_name=postfix/smtps
     -o smtpd_tls_wrappermode=yes
@@ -34,6 +37,7 @@ smtps      inet  n       -       y       -       -       smtpd
     -o smtpd_recipient_restrictions=
     -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
     -o milter_macro_daemon_name=ORIGINATING
+<% } -%>
 <% } -%>
 pickup     unix  n       -       y       60      1       pickup
 cleanup    unix  n       -       y       -       0       cleanup
@@ -69,7 +73,7 @@ cyrus     unix  -       n       n       -       -       pipe
   user=cyrus argv=/cyrus/bin/deliver -e -r ${sender} -m ${extension} ${user}
 <% } -%>
 
-<% if $postfix::enable_policyd-spf {-%>
+<% if $postfix::enable_policyd_spf {-%>
 ### SPF ###
 policyd-spf  unix  -       n       n       -       0       spawn
     user=policyd-spf argv=/usr/bin/policyd-spf

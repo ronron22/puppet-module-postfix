@@ -5,6 +5,11 @@ class postfix::config inherits postfix {
     content => epp('postfix/main.cf.epp'),
   }
 
+  file { '/etc/postfix/master.cf':
+    ensure  => file,
+    content => epp('postfix/master.cf.epp'),
+  }
+
   $config_files.each |String $file| {
     file { "${configuration_directory}/${file}":
       content => file("postfix/${::fqdn}${configuration_directory}/${file}"),
