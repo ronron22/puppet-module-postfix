@@ -84,7 +84,7 @@ postfix::ldapaliases_search_base: 'ou=People,dc=architux,dc=com'
 postfix::ldapaliases_scope: 'sub'
 postfix::ldapaliases_query_filter: '(cn=%s)'
 postfix::ldapaliases_result_attribute: 'mail'
-postfix::alias_map: 'hash:/etc/aliases,ldap:ldapaliases'
+postfix::alias_maps: 'hash:/etc/aliases,ldap:ldapaliases'
 postfix::alias_database: 'hash:/etc/aliases' 
 
 postfix::myorigin: '/etc/mailname'

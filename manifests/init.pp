@@ -64,7 +64,7 @@ class postfix (
   Optional[String]  $ldapaliases_scope = undef,
   Optional[String]  $ldapaliases_query_filter = undef,
   Optional[String]  $ldapaliases_result_attribute = undef,
-  Optional[String]  $alias_map = undef,
+  Optional[String]  $alias_maps = undef,
   Optional[String]  $alias_database = undef,
 
   Optional[String]  $myorigin = undef,
