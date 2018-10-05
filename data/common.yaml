@@ -186,7 +186,7 @@ postfix::postscreen_access_list:
 postfix::postscreen_blacklist_action: 'enforce'
 postfix::postscreen_dnsbl_threshold: '3'
 postfix:postscreen_dnsbl_action: 'enforce'
-postfix::postscreen_greet_banner: 'Bienvenue et merci d'attendre'
+postfix::postscreen_greet_banner: "Bienvenue et merci d'attendre"
 postfix::postscreen_greet_action: 'enforce'
 postfix::postscreen_pipelining_enable: 'yes'
 postfix::postscreen_pipelining_action: 'enforce'
