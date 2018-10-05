@@ -16,7 +16,6 @@ postfix::db_files:
 
 postfix::config_files:
   - 'dynamicmaps.cf'
-  - 'master.cf'
 
 postfix::access_files:
   - 'postscreen_access.cidr'
