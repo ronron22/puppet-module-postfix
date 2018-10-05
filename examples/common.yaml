@@ -53,7 +53,7 @@ postfix::smtpd_tls_key_file: '/var/lib/dehydrated/certs/architux.com/privkey.pem
 postfix::smtpd_use_tls: 'yes'
 postfix::smtpd_tls_session_cache_database: 'btree:${data_directory}/smtpd_scache'
 postfix::smtp_tls_session_cache_database: 'btree:${data_directory}/smtp_scache'
-postfix::smtpd_tls_loglevel: 1
+postfix::smtpd_tls_loglevel: '1'
 postfix::smtpd_tls_security_level: 'may'
 postfix::smtpd_tls_received_header: 'yes'
 postfix::smtpd_tls_session_cache_timeout: '3600s'
@@ -69,7 +69,7 @@ postfix::smtp_tls_exclude_ciphers: 'aNULL, RC4, MD5, DES, 3DES'
 postfix::enable_client_ssl: true
 postfix::smtp_use_tls: 'yes'
 postfix::smtp_tls_note_starttls_offer: 'yes'
-postfix::smtp_tls_loglevel: 1
+postfix::smtp_tls_loglevel: '1'
 
 postfix::enable_sasl: true
 postfix::smtpd_sasl_local_domain: '$myhostname'
@@ -138,14 +138,14 @@ postfix::mynetworks:
 postfix::sender_canonical_maps: 'hash:/etc/postfix/sender_canonical'
 postfix::message_size_limit: '153600000'
 
-postfix::mailbox_size_limit: 0
+postfix::mailbox_size_limit: '0'
 postfix::recipient_delimiter: '+'
 postfix::inet_interfaces: 'all'
 postfix::inet_protocols: 'ipv4'
 postfix::html_directory: '/usr/share/doc/postfix/html' 
 
 postfix::enable_milters: true
-postfix::milter_protocol: 6
+postfix::milter_protocol: '6'
 postfix::milter_mail_macros: 'i {mail_addr} {client_addr} {client_name} {auth_authen}'
 postfix::milter_default_action: 'accept'
 
@@ -184,7 +184,7 @@ postfix::postscreen_access_list:
   - 'permit_mynetworks'
   - 'cidr:/etc/postfix/postscreen_access.cidr'
 postfix::postscreen_blacklist_action: 'enforce'
-postfix::postscreen_dnsbl_threshold: 3
+postfix::postscreen_dnsbl_threshold: '3'
 postfix:postscreen_dnsbl_action: 'enforce'
 postfix::postscreen_greet_banner: "Bienvenue et merci d'attendre"
 postfix::postscreen_greet_action: 'enforce'
