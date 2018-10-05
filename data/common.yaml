@@ -178,7 +178,23 @@ postfix::smtpd_recipient_restrictions:
 
 postfix::header_checks: 'pcre:/etc/postfix/header_checks'
 postfix::mime_header_checks: 'regexp:/etc/postfix/mime_header_checks'
+
 postfix::enable_postscreen: true
+postfix::postscreen_access_list:
+  - 'permit_mynetworks'
+  - 'cidr:/etc/postfix/postscreen_access.cidr'
+postfix::postscreen_blacklist_action: 'enforce'
+postfix::postscreen_dnsbl_threshold: '3'
+postfix:postscreen_dnsbl_action: 'enforce'
+postfix::postscreen_greet_banner: 'Bienvenue et merci d'attendre'
+postfix::postscreen_greet_action: 'enforce'
+postfix::postscreen_pipelining_enable: 'yes'
+postfix::postscreen_pipelining_action: 'enforce'
+postfix::postscreen_non_smtp_command_enable: 'yes'
+postfix::postscreen_non_smtp_command_action: 'enforce'
+postfix::postscreen_bare_newline_enable: 'yes'
+postfix::postscreen_bare_newline_action: 'enforce'
+
 postfix::postscreen_dnsbl_sites:
   - 'zen.spamhaus.org*3'
   - 'bl.spameatingmonkey.net*2'

@@ -97,6 +97,18 @@ class postfix (
 
   Optional[Boolean] $enable_postscreen = undef,
   Optional[Array]   $postscreen_dnsbl_sites = undef,
+  Optional[Array]   $postscreen_access_list = undef,
+  Optional[String]  $postscreen_blacklist_action = undef,
+  Optional[String]  $postscreen_dnsbl_threshold = undef,
+  Optional[String]  $postscreen_dnsbl_action = undef,
+  Optional[String]  $postscreen_greet_banner = undef,
+  Optional[String]  $postscreen_greet_action = undef,
+  Optional[String]  $postscreen_pipelining_enable = undef,
+  Optional[String]  $postscreen_pipelining_action = undef,
+  Optional[String]  $postscreen_non_smtp_command_enable = undef,
+  Optional[String]  $postscreen_non_smtp_command_action = undef,
+  Optional[String]  $postscreen_bare_newline_enable = undef,
+  Optional[String]  $postscreen_bare_newline_action = undef,
 
   Optional[String]  $mailbox_transport = undef,
 
