@@ -50,7 +50,7 @@ class postfix (
   Optional[Boolean] $enable_client_ssl = undef,
   Optional[String]  $smtp_use_tls = undef,
   Optional[String]  $smtp_tls_note_starttls_offer = undef,
-  Optional[Integer]  $smtp_tls_loglevel = undef,
+  Optional[Integer] $smtp_tls_loglevel = undef,
 
   Optional[Boolean] $enable_sasl = undef,
   Optional[String]  $smtpd_sasl_local_domain = undef,
