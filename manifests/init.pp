@@ -1,15 +1,35 @@
+# postfix
+#
+# @summary Init class for postfix module, includes other classes
+#
+# @example Declare this class in site.pp
+#   class postfix {
+#   configuration_directory => '/usr/local/postfix/etc/postfix',
+#   package_name            => postfix',
+#   service_name            => 'postfix',
+#   }
+#
+# @param service_name
+#   The real service name's. Default value: undef.
+#
+# @param service_enable
+#   true or false. Default value: false.
+#
+# @param mail_name
+#   Postfix public signature. Default value: undef.
+#
 class postfix (
 
-  String  $service_name,
-  Boolean $service_enable,
-  String  $service_ensure,
-  Boolean $service_manage,
+  String  $service_name                         = 'postfix',
+  Boolean $service_enable                       = true,
+  String  $service_ensure                       = 'running',
+  Boolean $service_manage                       = true,
   Array   $postfix_packages,
-  String  $configuration_directory,
-  String  $postfix_files_directory, 
+  Stdlib::Absolutepath $configuration_directory = '/etc/postfix/',
+  String  $postfix_files_directory,
   String  $sasl_files_directory,
           $sasl_files_full_directory = "${configuration_directory}/${sasl_files_directory}",
-          $postfix_files_full_directory = "${configuration_directory}/${postfix_files_directory}", 
+          $postfix_files_full_directory = "${configuration_directory}/${postfix_files_directory}",
   Array   $config_files,
   Array   $access_files,
   Array   $db_files,
